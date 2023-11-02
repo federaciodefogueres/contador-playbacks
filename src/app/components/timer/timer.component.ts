@@ -51,13 +51,24 @@ export class TimerComponent {
 
   startTimer() {
     this.counterSubscription = interval(1000).subscribe(() => {
-      if (this.timer.seconds > 0) {
-        this.timer.seconds--;
-      } else if (this.timer.minutes > 0) {
-        this.timer.minutes--;
-        this.timer.seconds = 59;
+      if(this.timer.minutes === 0 && this.timer.seconds === 0) {
+        this.timer.minutes = -1;
+        this.timer.seconds++;
+      }
+      if (this.timer.minutes >= 0) {
+        if (this.timer.seconds > 0) {
+          this.timer.seconds--;
+        } else {
+          this.timer.minutes--;
+          this.timer.seconds = 59;
+        } 
       } else {
-        this.counterSubscription.unsubscribe();
+        if (this.timer.seconds < 59) {
+          this.timer.seconds++;
+        } else {
+          this.timer.seconds = 0;
+          this.timer.minutes--;
+        }
       }
     });
   }
