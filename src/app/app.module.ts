@@ -18,6 +18,10 @@ import { PagesModule } from './pages/pages.module';
     ComponentsModule,
     PagesModule,
   ],
+  exports: [
+    ComponentsModule,
+    PagesModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

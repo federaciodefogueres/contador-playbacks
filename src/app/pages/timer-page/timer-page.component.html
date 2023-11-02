@@ -1,1 +1,7 @@
-<p>timer-page works!</p>
+<app-timer [timerId]="'entryTimer'"></app-timer>
+<app-timer [timerId]="'exitTimer'"></app-timer>
+<button (click)="changeEntryTimer({name: 'entryTimer', status: true})" *ngIf="!entryTimerStatus.status">Activar contador</button>
+<button (click)="changeEntryTimer({name: 'entryTimer', status: false})" *ngIf="entryTimerStatus.status">Parar contador</button>
+
+<button (click)="changeExitTimer({name: 'exitTimer', status: true})" *ngIf="!exitTimerStatus.status">Activar contador</button>
+<button (click)="changeExitTimer({name: 'exitTimer', status: false})" *ngIf="exitTimerStatus.status">Parar contador</button>

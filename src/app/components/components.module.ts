@@ -10,6 +10,9 @@ import { TimerComponent } from './timer/timer.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    TimerComponent
   ]
 })
 export class ComponentsModule { }
