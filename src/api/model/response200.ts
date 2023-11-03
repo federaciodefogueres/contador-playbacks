@@ -9,8 +9,8 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Response200 } from './response200';
 
-export interface InlineResponse200 { 
-    status?: Response200;
+export interface Response200 { 
+    status: string;
+    message: string;
 }
