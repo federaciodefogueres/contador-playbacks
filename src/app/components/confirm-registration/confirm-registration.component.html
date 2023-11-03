@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <input
+            email
+            placeholder="email"
+        >
+    </div>
+    <div class="row">
+        <app-signer></app-signer>
+    </div>
+    <div class="row">
+        Tiempos registrados
+    </div>
+    <div class="row text-center pt-3">
+        <div class="col">
+            Entrada
+        </div>
+        <div class="col">
+            Salida
+        </div>
+    </div>
+    <div class="row text-center pb-3">
+        <div class="col">
+            {{entryTimer.value}}
+        </div>
+        <div class="col">
+            {{exitTimer.value}}
+        </div>
+    </div>
+    <div class="row">
+        <button>Enviar</button>
+    </div>
+</div>
