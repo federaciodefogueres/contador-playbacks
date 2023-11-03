@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { TimerService, TimerStatus } from 'src/app/services/timer.service';
 
 @Component({
@@ -10,16 +11,19 @@ export class TimerPageComponent {
 
   entryTimerStatus: TimerStatus = {
     name: '',
-    status: false
+    status: false,
+    value: ''
   }
 
   exitTimerStatus: TimerStatus = {
     name: '',
-    status: false
+    status: false,
+    value: ''
   }
 
   constructor(
-    private timerService: TimerService
+    private timerService: TimerService,
+    private route: Router
     ) {
       
     }
@@ -32,6 +36,10 @@ export class TimerPageComponent {
   changeExitTimer(timerStatus: TimerStatus) {
     this.exitTimerStatus = timerStatus;
     this.timerService.startTimer.next(timerStatus);
+  }
+
+  goToConfirmation() {
+    this.route.navigateByUrl('validar')
   }
 
 }

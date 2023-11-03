@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 export interface TimerStatus {
   name: string;
   status: boolean;
+  value: string;
 }
 
 @Injectable({
@@ -12,6 +13,8 @@ export interface TimerStatus {
 export class TimerService {
 
   startTimer: Subject<TimerStatus> = new Subject<TimerStatus>();
+
+  timers: TimerStatus[] = [];
 
   constructor() { }
 }

@@ -17,6 +17,12 @@ export class TimerComponent {
   @Input() timerId = '';
   private timerSubscription: Subscription = new Subscription;
 
+  timerStatus: TimerStatus = {
+    name: '',
+    status: false,
+    value: ''
+  }
+
   timer: TimerClockModel = {
     minutes: 4,
     seconds: 0,
@@ -37,6 +43,7 @@ export class TimerComponent {
   ) { }
   
   changeTimerStatus(timerStatus: TimerStatus) {
+    this.timerStatus = timerStatus;
     if (this.timerId !== timerStatus.name){
       return;
     }
@@ -77,6 +84,20 @@ export class TimerComponent {
     if (this.counterSubscription) {
       this.counterSubscription.unsubscribe();
     }
+    let timerData: TimerStatus = this.timerStatus;
+    timerData.value = `${this.timer.minutes}:${this.timer.seconds}`;
+    //localStorage.setItem(this.timerStatus.name, timerData.value);
+
+    let timer = this.timerService.timers.find(timer => {
+      return timer.name === timerData.name;
+    });
+
+    if(Boolean(timer)) {
+      timer!.value = timerData.value;
+    } else {
+      this.timerService.timers.push(timerData);
+    }
+
   }
 
 }
