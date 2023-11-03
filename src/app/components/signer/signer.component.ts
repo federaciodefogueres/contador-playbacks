@@ -12,7 +12,8 @@ export class SignerComponent {
   @Input() height = 418;
   @ViewChild('canvas') canvas!: ElementRef;
   cx!: CanvasRenderingContext2D;
-  drawingSubscription!: Subscription;
+  drawingSubscriptionMouse!: Subscription;
+  drawingSubscriptionTouch!: Subscription;
   constructor() {}
 
   ngAfterViewInit() {
@@ -39,7 +40,7 @@ export class SignerComponent {
 
   captureEvents(canvasEl: HTMLCanvasElement) {
     // this will capture all mousedown events from teh canvas element
-    this.drawingSubscription = fromEvent(canvasEl, 'mousedown')
+    this.drawingSubscriptionMouse = fromEvent(canvasEl, 'mousedown')
       .pipe(
         switchMap(e => {
           // after a mouse down, we'll record all mouse moves
@@ -56,22 +57,53 @@ export class SignerComponent {
         })
       )
       .subscribe((res: any) => {
-        const rect = canvasEl.getBoundingClientRect();
-
-        // previous and current position with the offset
-        const prevPos = {
-          x: res[0].clientX - rect.left,
-          y: res[0].clientY - rect.top
-        };
-
-        const currentPos = {
-          x: res[1].clientX - rect.left,
-          y: res[1].clientY - rect.top
-        };
-
-        // this method we'll implement soon to do the actual drawing
-        this.drawOnCanvas(prevPos, currentPos);
+        this.manageDrawEvent(this.processPositions(canvasEl, res, 'mouse'));
       });
+
+      this.drawingSubscriptionTouch = fromEvent(canvasEl, 'touchstart')
+        .pipe(
+          switchMap(e => {
+            return fromEvent(canvasEl, 'touchmove').pipe(
+              takeUntil(fromEvent(canvasEl, 'touchend')),
+              pairwise()
+            )
+          })
+        ).subscribe((res: any) => {
+          this.manageDrawEvent(this.processPositions(canvasEl, res, 'touch'));
+        })
+  }
+
+  processPositions(canvasEl: HTMLCanvasElement, res: any, eventType: string) {
+
+    const rect = canvasEl.getBoundingClientRect();
+    let prevPos = {
+      x: 0 - rect.left,
+      y: 0 - rect.top
+    };
+
+    let currentPos = {
+      x: 0 - rect.left,
+      y: 0 - rect.top
+    };
+
+    if (eventType === 'mouse') {
+      prevPos.x += res[0].clientX;
+      prevPos.y += res[0].clientY;
+      currentPos.x += res[1].clientX;
+      currentPos.y += res[1].clientY;
+    } else if (eventType === 'touch') {
+      prevPos.x += res[0].targetTouches[0].clientX;
+      prevPos.y += res[0].targetTouches[0].clientY;
+      currentPos.x += res[1].targetTouches[0].clientX;
+      currentPos.y += res[1].targetTouches[0].clientY;
+    }
+
+    return [prevPos, currentPos]
+
+  }
+
+  manageDrawEvent(positions: any[]) {
+    this.drawOnCanvas(positions[0], positions[1]);
   }
 
   drawOnCanvas(
@@ -100,7 +132,8 @@ export class SignerComponent {
   
   ngOnDestroy() {
     // this will remove event lister when this component is destroyed
-    this.drawingSubscription.unsubscribe();
+    this.drawingSubscriptionMouse.unsubscribe();
+    this.drawingSubscriptionTouch.unsubscribe();
   }
 
 }
