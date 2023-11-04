@@ -9,6 +9,7 @@ import { PagesModule } from './pages/pages.module';
 import { ApiModule, BASE_PATH } from 'src/api';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,12 +23,14 @@ import { environment } from 'src/environments/environment.prod';
     PagesModule,
     ApiModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   exports: [
     ComponentsModule,
     PagesModule,
     ApiModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
