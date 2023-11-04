@@ -1,14 +1,18 @@
-<div class="container">
+<form class="container" [formGroup]="registryForm">
     <div class="row">
+        Registro sesión X certámen artístico - Foguera Cementerio Norte
+    </div>
+    <div class="row py-3">
         <input
             email
             placeholder="email"
+            formControlName="email"
         >
     </div>
-    <div class="row">
-        <app-signer></app-signer>
+    <div class="row py-2">
+        <app-signer #signer [width]="calculatedSize.width" [height]="calculatedSize.height"></app-signer>
     </div>
-    <div class="row">
+    <div class="row py-3">
         Tiempos registrados
     </div>
     <div class="row text-center pt-3">
@@ -19,15 +23,19 @@
             Salida
         </div>
     </div>
-    <div class="row text-center pb-3">
-        <div class="col">
-            {{entryTimer.value}}
-        </div>
-        <div class="col">
-            {{exitTimer.value}}
-        </div>
+    <div class="row pb-3 justify-content-around">
+        <input
+            class="col-4"
+            [value]="entryTimer.value"
+            formControlName="entryTimer"
+        >
+        <input
+            class="col-4"
+            [value]="exitTimer.value"
+            formControlName="exitTimer"
+        >
     </div>
-    <div class="row">
-        <button>Enviar</button>
+    <div class="row py-3">
+        <button (click)="sendEmail()">Enviar</button>
     </div>
-</div>
+</form>

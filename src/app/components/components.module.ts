@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TimerComponent } from './timer/timer.component';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
 import { SignerComponent } from './signer/signer.component';
-
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +12,8 @@ import { SignerComponent } from './signer/signer.component';
     SignerComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
     TimerComponent
