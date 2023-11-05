@@ -35,6 +35,7 @@ export class SignerComponent {
     this.context.beginPath();
     this.lastX = (event as MouseEvent).clientX - rect.left || (event as TouchEvent).touches[0].clientX - rect.left;
     this.lastY = (event as MouseEvent).clientY - rect.top || (event as TouchEvent).touches[0].clientY- rect.top;
+    this.context.moveTo(this.lastX, this.lastY);
     /*
     this.isDrawing = true;
     this.context.beginPath();
