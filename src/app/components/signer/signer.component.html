@@ -1,4 +1,11 @@
-<canvas #canvas style="border:1px solid #c3c3c3;">
+<canvas #canvas style="border:1px solid #c3c3c3;"
+    (mousedown)="startDrawing($event)" 
+    (mousemove)="draw($event)" 
+    (mouseup)="stopDrawing()"
+    (touchstart)="startDrawing($event)" 
+    (touchmove)="draw($event)" 
+    (touchend)="stopDrawing()"
+>
     Your browser does not support the canvas element.
 </canvas>
 
