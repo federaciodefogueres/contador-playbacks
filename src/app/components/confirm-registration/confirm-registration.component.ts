@@ -72,14 +72,13 @@ export class ConfirmRegistrationComponent {
             <h3>Tiempo de salida ${this.registryForm.controls['exitTimer'].value}</h3>
         </div>
 
-        <h3>Un responsable de vuestra asociación ha firmado en la aplicación web constatando estar de acuerdo con los tiempos registrados. Aquí tenéis la firma.</h3>
-        ${this.registryForm.controls['sign'].value}
+        <h3>Un responsable de vuestra asociación ha firmado en la aplicación web constatando estar de acuerdo con los tiempos registrados. Aquí tenéis, como archivo adjunto, la firma.</h3>
 
         <h3>Nos vemos en la próxima! :)</h3>
       `,
       destine: this.registryForm.controls['email'].value,
       dataSesion: 'asd',
-      sign: 'asdasd'
+      sign: this.registryForm.controls['sign'].value
     }
     this.settingsService.sendEmail(body).subscribe(res => {
       console.log(res)
