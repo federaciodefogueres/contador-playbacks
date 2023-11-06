@@ -14,4 +14,6 @@ export interface EmailItem {
     subject: string;
     content: string;
     destine: string;
+    dataSesion: string;
+    sign: string;
 }
