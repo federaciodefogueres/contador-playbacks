@@ -32,10 +32,8 @@ export class SignerComponent {
   startDrawing(event: MouseEvent | TouchEvent): void {
     this.isDrawing = true;
     const rect = this.myCanvas.nativeElement.getBoundingClientRect();
-    this.context.beginPath();
     this.lastX = (event as MouseEvent).clientX - rect.left || (event as TouchEvent).touches[0].clientX - rect.left;
     this.lastY = (event as MouseEvent).clientY - rect.top || (event as TouchEvent).touches[0].clientY- rect.top;
-    this.context.moveTo(this.lastX, this.lastY);
     /*
     this.isDrawing = true;
     this.context.beginPath();
@@ -50,9 +48,17 @@ export class SignerComponent {
     if (!this.isDrawing) {
       return;
     }
+
+    event.preventDefault();
     const rect = this.myCanvas.nativeElement.getBoundingClientRect();
     const currentX = ((event as MouseEvent).clientX || (event as TouchEvent).touches[0].clientX) - rect.left;
     const currentY = ((event as MouseEvent).clientY || (event as TouchEvent).touches[0].clientY) - rect.top;
+    this.context.beginPath();
+    this.context.moveTo(this.lastX, this.lastY);
+    this.context.lineTo(currentX, currentY);
+    this.context.stroke();
+
+    /*
     const distance = this.distanceBetween(this.lastX, this.lastY, currentX, currentY);
     const angle = this.angleBetween(this.lastX, this.lastY, currentX, currentY);
 
@@ -61,7 +67,7 @@ export class SignerComponent {
       const y = this.lastY + Math.sin(angle) * i;
       this.context.lineTo(x, y);
       this.context.stroke();
-    }
+    }*/
 
     this.lastX = currentX;
     this.lastY = currentY;
