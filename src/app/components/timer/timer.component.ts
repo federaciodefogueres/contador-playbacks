@@ -7,12 +7,16 @@ export interface TimerClockModel {
   seconds: number;
 }
 
+type TimerColorClass = 'good' | 'warning' | 'danger';
+
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss']
 })
 export class TimerComponent {
+
+  timerColorClass: TimerColorClass = 'good';
 
   @Input() timerId = '';
   private timerSubscription: Subscription = new Subscription;
@@ -56,6 +60,17 @@ export class TimerComponent {
 
   counterSubscription: Subscription = new Subscription;
 
+  checkTimerColorClass(timer: number) {
+    console.log(timer)
+    if (timer === 1 ) {
+      this.timerColorClass = 'warning';
+    } else if (timer === 0) {
+      this.timerColorClass = 'danger';
+    } else {
+      this.timerColorClass = 'good';
+    }
+  }
+
   startTimer() {
     this.counterSubscription = interval(1000).subscribe(() => {
       if(this.timer.minutes === 0 && this.timer.seconds === 0) {
@@ -68,6 +83,7 @@ export class TimerComponent {
         } else {
           this.timer.minutes--;
           this.timer.seconds = 59;
+          this.checkTimerColorClass(this.timer.minutes);
         } 
       } else {
         if (this.timer.seconds < 59) {
