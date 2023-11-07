@@ -1,41 +1,70 @@
 <form class="container" [formGroup]="registryForm">
-    <div class="row">
-        Registro sesión X certámen artístico - Foguera Cementerio Norte
+
+    <div class="container p-3 session-container">
+        <div class="col-3">
+            <img src="../../../assets/logofede.png" class="img-fluid" alt="">
+        </div>
+        <div class="col">
+            <div class="row session">
+                <div class="col">
+                    Eliminatoria - Adultos - 18 nov 2023
+                </div>
+            </div>
+            <div class="row asociacion">
+                <div class="col">
+                    Registro Foguera de prueba
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row py-3">
+
+    <div class="row m-3 mail">
+        <p class="p-0">Email de la asociación</p>
         <input
             email
             placeholder="email"
             formControlName="email"
         >
     </div>
-    <div class="row py-2">
-        <app-signer #signer [width]="calculatedSize.width" [height]="calculatedSize.height"></app-signer>
+
+    <div class="row m-2">
+        <app-signer #signer [width]="calculatedSize.width" [height]="calculatedSize.height" class="signer"></app-signer>
     </div>
-    <div class="row py-3">
-        Tiempos registrados
-    </div>
-    <div class="row text-center pt-3">
-        <div class="col">
-            Entrada
+
+    <div class="container p-3 my-3 timers">
+
+        <div class="row text-center titles">
+            <p class="p-0 m-0">
+                Tiempos registrados
+            </p>
         </div>
-        <div class="col">
-            Salida
+    
+        <div class="row text-center mt-3 titles">
+            <div class="col">
+                Entrada
+            </div>
+            <div class="col">
+                Salida
+            </div>
         </div>
+    
+        <div class="row justify-content-around times my-3">
+            <input
+                class="col"
+                [value]="entryTimer.value"
+                formControlName="entryTimer"
+            >
+            <input
+                class="col"
+                [value]="exitTimer.value"
+                formControlName="exitTimer"
+            >
+        </div>
+
     </div>
-    <div class="row pb-3 justify-content-around">
-        <input
-            class="col-4"
-            [value]="entryTimer.value"
-            formControlName="entryTimer"
-        >
-        <input
-            class="col-4"
-            [value]="exitTimer.value"
-            formControlName="exitTimer"
-        >
+
+    <div class="row m-3">
+        <button class="btn btn-primary send-button" (click)="sendEmail()">Enviar</button>
     </div>
-    <div class="row py-3">
-        <button (click)="sendEmail()">Enviar</button>
-    </div>
+
 </form>

@@ -1,43 +1,48 @@
 <div class="container">
 
-    <div class="container py-3">
-        <div class="row">
-            <div class="col">
-                Eliminatoria - Adultos - 18 nov 2023
-            </div>
+    <div class="container p-3 session-container">
+        <div class="col-3">
+            <img src="../../../assets/logofede.png" class="img-fluid" alt="">
         </div>
-        <div class="row">
-            <div class="col">
-                Foguera de prueba
+        <div class="col">
+            <div class="row session">
+                <div class="col">
+                    Eliminatoria - Adultos - 18 nov 2023
+                </div>
+            </div>
+            <div class="row asociacion">
+                <div class="col">
+                    Foguera de prueba
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="container py-3">
-        <div class="row d-flex text-center">
+    <div class="container p-3 my-3 timers">
+        <div class="row d-flex text-center titles">
             <div class="col">Tiempo de entrada</div>
             <div class="col">Tiempo de salida</div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center times m-3">
             <app-timer class="col" [timerId]="'entryTimer'"></app-timer>
             <app-timer class="col" [timerId]="'exitTimer'"></app-timer>
         </div>
         <div class="row">
-            <div class="col d-flex justify-content-center">
-                <button (click)="changeEntryTimer({name: 'entryTimer', status: true, value: ''})" *ngIf="!entryTimerStatus.status">Activar contador</button>
-                <button (click)="changeEntryTimer({name: 'entryTimer', status: false, value: ''})" *ngIf="entryTimerStatus.status">Parar contador</button>
+            <div class="col d-flex justify-content-center timer-button">
+                <button (click)="changeEntryTimer({name: 'entryTimer', status: true, value: ''})" *ngIf="!entryTimerStatus.status" class="btn btn-success activate-button">Activar</button>
+                <button (click)="changeEntryTimer({name: 'entryTimer', status: false, value: ''})" *ngIf="entryTimerStatus.status" class="btn btn-danger stop-button">Parar</button>
             </div>
-            <div class="col d-flex justify-content-center">
-                <button (click)="changeExitTimer({name: 'exitTimer', status: true, value: ''})" *ngIf="!exitTimerStatus.status">Activar contador</button>
-                <button (click)="changeExitTimer({name: 'exitTimer', status: false, value: ''})" *ngIf="exitTimerStatus.status">Parar contador</button>
+            <div class="col d-flex justify-content-center timer-button">
+                <button (click)="changeExitTimer({name: 'exitTimer', status: true, value: ''})" *ngIf="!exitTimerStatus.status" class="btn btn-success activate-button">Activar</button>
+                <button (click)="changeExitTimer({name: 'exitTimer', status: false, value: ''})" *ngIf="exitTimerStatus.status" class="btn btn-danger stop-button">Parar</button>
             </div>
         </div>
     </div>
 
-    <div class="container py-3">
+    <div class="container py-3 send-container">
         <div class="row">
             <div class="col d-flex justify-content-center">
-                <button (click)="goToConfirmation()">Validar registro</button>
+                <button (click)="goToConfirmation()" class="btn btn-primary send-button">Validar registro</button>
             </div>
         </div>
     </div>

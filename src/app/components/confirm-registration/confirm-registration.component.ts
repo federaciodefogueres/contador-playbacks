@@ -36,7 +36,7 @@ export class ConfirmRegistrationComponent {
     private settingsService: SettingsService,
     private fb: FormBuilder,
   ){
-    this.calculatedSize.width = window.innerWidth * 0.95;
+    this.calculatedSize.width = window.innerWidth - 32;
     this.calculatedSize.height = window.innerHeight * 0.3;
     for(let timer of timerService.timers) {
       if (timer.name === 'entryTimer') {
