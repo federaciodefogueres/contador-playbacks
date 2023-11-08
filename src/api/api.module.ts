@@ -3,6 +3,8 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
+import { AsociacionesService } from './api/asociaciones.service';
+import { SesionesService } from './api/sesiones.service';
 import { SettingsService } from './api/settings.service';
 
 @NgModule({
@@ -10,6 +12,8 @@ import { SettingsService } from './api/settings.service';
   declarations: [],
   exports:      [],
   providers: [
+    AsociacionesService,
+    SesionesService,
     SettingsService ]
 })
 export class ApiModule {
