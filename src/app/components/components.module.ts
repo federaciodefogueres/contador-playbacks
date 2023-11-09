@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SessionSelectorComponent } from './session-selector/session-selector.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HeaderComponent } from './header/header.component';
+import { SelectorComponent } from './selector/selector.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { HeaderComponent } from './header/header.component';
     ConfirmRegistrationComponent,
     SignerComponent,
     SessionSelectorComponent,
-    HeaderComponent
+    HeaderComponent,
+    SelectorComponent
   ],
   imports: [
     CommonModule,
