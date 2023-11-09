@@ -1,13 +1,19 @@
-<div class="container p-3 d-flex justify-content-center" [ngClass]="timerColorClass">
+<div class="d-flex justify-content-center align-items-center" [ngClass]="[timerColorClass, fullScreen, containerClass, paddingClass]" (click)="changeTimerStatus(null)">
     <div class="row">
         <div class="col">
-            {{timer.minutes}}
+            <p>
+                {{timer.minutes}}
+            </p>
         </div>
         <div class="col">
-            :
+            <p>
+                :
+            </p>
         </div>
         <div class="col">
-            {{timer.seconds}}
+            <p>
+                {{timer.seconds}}
+            </p>
         </div>
     </div>
 </div>
