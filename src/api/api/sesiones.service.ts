@@ -17,6 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { SessionResponse } from '../model/sessionResponse';
 import { SessionsResponse } from '../model/sessionsResponse';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -82,6 +83,47 @@ export class SesionesService {
         ];
 
         return this.httpClient.request<SessionsResponse>('get',`${this.basePath}/sesiones`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * Devuelve la información de la sesión solicitada.
+     * @param idSession 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getSession(idSession: string, observe?: 'body', reportProgress?: boolean): Observable<SessionResponse>;
+    public getSession(idSession: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SessionResponse>>;
+    public getSession(idSession: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SessionResponse>>;
+    public getSession(idSession: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (idSession === null || idSession === undefined) {
+            throw new Error('Required parameter idSession was null or undefined when calling getSession.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<SessionResponse>('get',`${this.basePath}/sesiones/${encodeURIComponent(String(idSession))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

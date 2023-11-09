@@ -9,12 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { Asociacion } from './asociacion';
+import { Response200 } from './response200';
+import { Session } from './session';
 
-export interface Session { 
-    id?: string;
-    sessionTitle?: string;
-    type?: number;
-    typeNormalized?: string;
-    participants?: Array<Asociacion>;
+export interface SessionResponse { 
+    status?: Response200;
+    session?: Session;
 }
