@@ -4,19 +4,24 @@ import { TimerComponent } from './timer/timer.component';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
 import { SignerComponent } from './signer/signer.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SessionSelectorComponent } from './session-selector/session-selector.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
     TimerComponent,
     ConfirmRegistrationComponent,
-    SignerComponent
+    SignerComponent,
+    SessionSelectorComponent
   ],
   imports: [
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDropdownModule
   ],
   exports: [
-    TimerComponent
+    TimerComponent,
+    SessionSelectorComponent
   ]
 })
 export class ComponentsModule { }

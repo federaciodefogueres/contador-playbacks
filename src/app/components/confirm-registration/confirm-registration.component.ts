@@ -87,7 +87,7 @@ export class ConfirmRegistrationComponent {
         sign: this.registryForm.controls['sign'].value
       }
       this.settingsService.sendEmail(body).subscribe((res: InlineResponse200) => {
-        if (res.status?.status === '200') {
+        if (res.status?.code === '200') {
           this.emailStatus = 'sentOK';
           this.alertMessage = '¡Email enviado!';
         } else {

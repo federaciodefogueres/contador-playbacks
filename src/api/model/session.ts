@@ -13,7 +13,7 @@ import { Asociacion } from './asociacion';
 
 export interface Session { 
     id?: string;
-    sessionTitle?: string;
+    session_title?: string;
     type?: number;
     typeNormalized?: string;
     participants?: Array<Asociacion>;

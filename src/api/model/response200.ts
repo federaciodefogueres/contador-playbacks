@@ -11,6 +11,6 @@
  */
 
 export interface Response200 { 
-    status: string;
+    code: string;
     message: string;
 }
