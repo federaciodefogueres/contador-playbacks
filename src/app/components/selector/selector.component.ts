@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Session, SesionesService, SessionsResponse, AsociacionesService, AsociacionesResponse, Asociacion } from 'src/api';
+import { ChoreService } from 'src/app/services/chore.service';
 
 export type TypeSelector = 'session' | 'asociacion';
 
@@ -31,11 +32,19 @@ export class SelectorComponent {
   }
 
   loadDataAsociaciones() {
+    this.choreService.sessionSelectedObservable.subscribe((res: Session | null) => {
+      if (res !== null) {
+        this.selectedAsociacion = null;
+        this.choreService.setAsociacionSelected(this.selectedAsociacion);
+        this.sessionsService.getSession(res.id!).subscribe(sessionData => {
+          this.asociaciones = sessionData.session?.participants!;
+        })
+        this.loading = false;
+      }
+    })
     this.asociacionsService.getAllAsociaciones().subscribe((res: AsociacionesResponse) => {
       if (res.status?.code === '200') {
         this.asociaciones = res.participants!;
-        this.loading = false;
-        console.log(this.asociaciones)
       }
     })
   }
@@ -53,6 +62,7 @@ export class SelectorComponent {
   constructor(
     private sessionsService: SesionesService,
     private asociacionsService: AsociacionesService,
+    private choreService: ChoreService
   ) { }
 
   isAsociacion(): boolean{
@@ -66,8 +76,10 @@ export class SelectorComponent {
   onSelect(item: Session | Asociacion) {
     if (this.isAsociacion()){
       this.selectedAsociacion = item;
+      this.choreService.setAsociacionSelected(this.selectedAsociacion);
     } else if (this.isSession()) {
       this.selectedSession = item;
+      this.choreService.setSessionSelected(this.selectedSession);
     }
   }
 }
