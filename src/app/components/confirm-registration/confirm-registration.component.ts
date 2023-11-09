@@ -1,7 +1,7 @@
 import { formatCurrency } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Asociacion, EmailItem, InlineResponse200, SettingsService } from 'src/api';
+import { Asociacion, EmailItem, InlineResponse200, Session, SettingsService } from 'src/api';
 import { ChoreService } from 'src/app/services/chore.service';
 import { TimerService, TimerStatus } from 'src/app/services/timer.service';
 
@@ -33,9 +33,16 @@ export class ConfirmRegistrationComponent {
   }
   timers: TimerStatus[] = [];
 
+  session: Session | null = null;
+
   public registryForm!: FormGroup;
 
   ngOnInit() {
+    this.choreService.sessionSelectedObservable.subscribe((res: Session | null) => {
+      if (res !== null) {
+        this.session = res;
+      }
+    })
     this.choreService.asociacionSelectedObservable.subscribe((res: Asociacion | null) => {
       if (res !== null) {
         this.registryForm.controls['email'].setValue(res.email);
@@ -79,7 +86,7 @@ export class ConfirmRegistrationComponent {
         subject: 'Envío de resultados FFSJ',
         content: `
           <h1>XXXIII Certamen Artístico Fogueres de Sant Joan</h1>
-          <h3>Modalidad Única - Sesión 11 Noviembre 2023 11:00h</h3>
+          <h3>${this.session?.session_title}</h3>
           <p>¡Hola! Este es un coreo automático generado por nuestro asistente virtual. El tiempo registrado por tu asociación han sido los siguientes:</p>
           <div style="display: flex;">
               <h3>Tiempo de entrada ${this.registryForm.controls['entryTimer'].value}</h3>
