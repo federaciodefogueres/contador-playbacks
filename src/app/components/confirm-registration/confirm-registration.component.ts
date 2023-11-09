@@ -1,7 +1,8 @@
 import { formatCurrency } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { EmailItem, InlineResponse200, SettingsService } from 'src/api';
+import { Asociacion, EmailItem, InlineResponse200, SettingsService } from 'src/api';
+import { ChoreService } from 'src/app/services/chore.service';
 import { TimerService, TimerStatus } from 'src/app/services/timer.service';
 
 @Component({
@@ -34,14 +35,23 @@ export class ConfirmRegistrationComponent {
 
   public registryForm!: FormGroup;
 
+  ngOnInit() {
+    this.choreService.asociacionSelectedObservable.subscribe((res: Asociacion | null) => {
+      if (res !== null) {
+        this.registryForm.controls['email'].setValue(res.email);
+      }
+    })
+  }
+
   constructor(
     private timerService: TimerService,
     private settingsService: SettingsService,
     private fb: FormBuilder,
+    private choreService: ChoreService
   ){
     this.calculatedSize.width = window.innerWidth - 32;
     this.calculatedSize.height = window.innerHeight * 0.3;
-    for(let timer of timerService.timers) {
+    for(let timer of this.timerService.timers) {
       if (timer.name === 'entryTimer') {
         this.entryTimer = timer;
       } else if (timer.name === 'exitTimer') {
@@ -87,7 +97,7 @@ export class ConfirmRegistrationComponent {
         sign: this.registryForm.controls['sign'].value
       }
       this.settingsService.sendEmail(body).subscribe((res: InlineResponse200) => {
-        if (res.status?.status === '200') {
+        if (res.status?.code === '200') {
           this.emailStatus = 'sentOK';
           this.alertMessage = '¡Email enviado!';
         } else {

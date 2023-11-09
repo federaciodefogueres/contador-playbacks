@@ -1,0 +1,12 @@
+<div class="dropdown" *ngIf="!loading">
+    <button class="btn btn-primary dropdown-toggle button-no-style" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="type === 'session'">
+      {{selectedSession !== null ? selectedSession.session_title : 'Escoge una sesión'}}
+    </button>
+    <button class="btn btn-primary dropdown-toggle button-no-style" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" *ngIf="type === 'asociacion'">
+      {{selectedAsociacion !== null ? selectedAsociacion.title : 'Escoge una asociación'}}
+    </button>
+    <ul class="dropdown-menu session-list" aria-labelledby="dropdownMenuButton">
+      <li><a class="dropdown-item session-item" *ngFor="let session of sessions" (click)="onSelect(session)">{{session.session_title}}</a></li>
+      <li><a class="dropdown-item session-item" *ngFor="let asociacion of asociaciones" (click)="onSelect(asociacion)">{{asociacion.title}}</a></li>
+    </ul>
+  </div>
