@@ -8,6 +8,10 @@ export interface TimerClockModel {
 }
 
 type TimerColorClass = 'good' | 'warning' | 'danger';
+type TimerScreenClass = 'full' | 'component';
+type FullScreenClass = 'full-screen' | '' ;
+type ContainerClass = 'container' | '' ;
+type PaddingClass = 'p-3' | '' ;
 
 @Component({
   selector: 'app-timer',
@@ -17,8 +21,15 @@ type TimerColorClass = 'good' | 'warning' | 'danger';
 export class TimerComponent {
 
   timerColorClass: TimerColorClass = 'good';
+  fullScreen: FullScreenClass = 'full-screen';
+  containerClass: ContainerClass = 'container';
+  paddingClass: PaddingClass = 'p-3';
 
+  @Input() timerType: TimerScreenClass = 'component';
   @Input() timerId = '';
+
+  timerScreenClasses = ['container', 'p-3'];
+
   private timerSubscription: Subscription = new Subscription;
 
   timerStatus: TimerStatus = {
@@ -28,11 +39,23 @@ export class TimerComponent {
   }
 
   timer: TimerClockModel = {
-    minutes: 4,
-    seconds: 0,
+    minutes: 2,
+    seconds: 2,
   };
 
+  loading: boolean = true;
+
   ngOnInit() {
+    if (this.timerType === 'component') {
+      this.fullScreen = '';
+      this.containerClass = 'container';
+      this.paddingClass = 'p-3';
+    } else {
+      this.fullScreen = 'full-screen';
+      this.containerClass = '';
+      this.paddingClass = '';
+    }
+    this.loading = false;
     this.timerSubscription = this.timerService.startTimer.subscribe((timerStatus: TimerStatus)  => {
       this.changeTimerStatus(timerStatus);
     })
@@ -46,12 +69,16 @@ export class TimerComponent {
     private timerService: TimerService
   ) { }
   
-  changeTimerStatus(timerStatus: TimerStatus) {
-    this.timerStatus = timerStatus;
-    if (this.timerId !== timerStatus.name){
-      return;
+  changeTimerStatus(timerStatus: TimerStatus | null) {
+    if (timerStatus !== null) {
+      if (this.timerId !== timerStatus!.name){
+        return;
+      }
+      this.timerStatus = timerStatus;
+    } else {
+      this.timerStatus.status = !this.timerStatus.status
     }
-    if (timerStatus.status) {
+    if (this.timerStatus!.status) {
       this.startTimer();
     } else {
       this.stopTimer();
@@ -102,8 +129,6 @@ export class TimerComponent {
     }
     let timerData: TimerStatus = this.timerStatus;
     timerData.value = `${this.timer.minutes}:${this.timer.seconds}`;
-    //localStorage.setItem(this.timerStatus.name, timerData.value);
-
     let timer = this.timerService.timers.find(timer => {
       return timer.name === timerData.name;
     });
@@ -113,7 +138,6 @@ export class TimerComponent {
     } else {
       this.timerService.timers.push(timerData);
     }
-
   }
 
 }

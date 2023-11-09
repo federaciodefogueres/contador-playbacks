@@ -34,6 +34,7 @@ export class ConfirmRegistrationComponent {
   timers: TimerStatus[] = [];
 
   session: Session | null = null;
+  asociacion: Asociacion | null = null;
 
   public registryForm!: FormGroup;
 
@@ -45,7 +46,8 @@ export class ConfirmRegistrationComponent {
     })
     this.choreService.asociacionSelectedObservable.subscribe((res: Asociacion | null) => {
       if (res !== null) {
-        this.registryForm.controls['email'].setValue(res.email);
+        this.asociacion = res;
+        this.registryForm.controls['email'].setValue(this.asociacion.email);
       }
     })
   }
@@ -86,7 +88,8 @@ export class ConfirmRegistrationComponent {
         subject: 'Envío de resultados FFSJ',
         content: `
           <h1>XXXIII Certamen Artístico Fogueres de Sant Joan</h1>
-          <h3>${this.session?.session_title}</h3>
+          <h3>Sesión: ${this.session?.session_title}</h3>
+          <h3>Asociación participante: ${this.asociacion?.title}</h3>
           <p>¡Hola! Este es un coreo automático generado por nuestro asistente virtual. El tiempo registrado por tu asociación han sido los siguientes:</p>
           <div style="display: flex;">
               <h3>Tiempo de entrada ${this.registryForm.controls['entryTimer'].value}</h3>
