@@ -9,3 +9,22 @@
 .good {
     background-color: var(--color-light-green);
 }
+
+.col {
+    align-self: center;
+    p{
+        margin: 0;
+    }
+}
+
+.full-screen{
+    height: 100%;
+    width: 100%;
+    font-size: 45vw;
+}
+
+@media screen and (orientation: landscape) {
+    .full-screen{
+        font-size: 50vh;
+    }
+}
