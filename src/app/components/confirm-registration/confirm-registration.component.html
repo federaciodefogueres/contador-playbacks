@@ -49,17 +49,15 @@
         </div>
 
     </div>
-
-
+    <div class="alert alert-success" role="alert" *ngIf="emailStatus === 'sentOK'">
+        {{alertMessage}}
+    </div>
+    
+    <div class="alert alert-danger" role="alert" *ngIf="emailStatus === 'sentKO'">
+        {{alertMessage}}
+    </div>
+    
+    <div class="alert alert-warning" role="alert" *ngIf="emailStatus === 'sending'">
+        {{alertMessage}}
+    </div>
 </form>
-<div class="alert alert-success" role="alert" *ngIf="emailStatus === 'sentOK'">
-    {{alertMessage}}
-</div>
-
-<div class="alert alert-danger" role="alert" *ngIf="emailStatus === 'sentKO'">
-    {{alertMessage}}
-</div>
-
-<div class="alert alert-warning" role="alert" *ngIf="emailStatus === 'sending'">
-    {{alertMessage}}
-</div>
