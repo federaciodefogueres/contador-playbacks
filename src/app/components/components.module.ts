@@ -4,7 +4,6 @@ import { TimerComponent } from './timer/timer.component';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
 import { SignerComponent } from './signer/signer.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SessionSelectorComponent } from './session-selector/session-selector.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HeaderComponent } from './header/header.component';
 import { SelectorComponent } from './selector/selector.component';
@@ -14,7 +13,6 @@ import { SelectorComponent } from './selector/selector.component';
     TimerComponent,
     ConfirmRegistrationComponent,
     SignerComponent,
-    SessionSelectorComponent,
     HeaderComponent,
     SelectorComponent
   ],
@@ -25,7 +23,6 @@ import { SelectorComponent } from './selector/selector.component';
   ],
   exports: [
     TimerComponent,
-    SessionSelectorComponent,
     HeaderComponent
   ]
 })
