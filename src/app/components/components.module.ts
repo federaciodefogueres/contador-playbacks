@@ -6,13 +6,15 @@ import { SignerComponent } from './signer/signer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SessionSelectorComponent } from './session-selector/session-selector.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     TimerComponent,
     ConfirmRegistrationComponent,
     SignerComponent,
-    SessionSelectorComponent
+    SessionSelectorComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
   ],
   exports: [
     TimerComponent,
-    SessionSelectorComponent
+    SessionSelectorComponent,
+    HeaderComponent
   ]
 })
 export class ComponentsModule { }

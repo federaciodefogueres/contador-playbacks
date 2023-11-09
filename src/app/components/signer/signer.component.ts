@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
 import { fromEvent, concatMap, takeUntil, tap, Subscription, pairwise, switchMap } from 'rxjs';
 
 
@@ -16,17 +16,26 @@ export class SignerComponent {
   private lastX = 0;
   private lastY = 0;
 
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.resizeCanvas();
+  }
+
   constructor() {}
 
   ngAfterViewInit(): void {
     this.context = (this.myCanvas.nativeElement as HTMLCanvasElement).getContext('2d')!;
-    this.myCanvas.nativeElement.width = this.width;
-    this.myCanvas.nativeElement.height = this.height;
-
-    // set some default properties about the line
+    this.resizeCanvas();
     this.context.lineWidth = 3;
     this.context.lineCap = 'round';
     this.context.strokeStyle = '#000';
+  }
+
+  resizeCanvas(){
+    this.height = window.innerHeight * 0.3;
+    this.width = window.innerWidth * 0.80;
+    this.myCanvas.nativeElement.height = this.height;
+    this.myCanvas.nativeElement.width = window.innerWidth * 0.80;
   }
 
   startDrawing(event: MouseEvent | TouchEvent): void {
@@ -34,21 +43,12 @@ export class SignerComponent {
     const rect = this.myCanvas.nativeElement.getBoundingClientRect();
     this.lastX = (event as MouseEvent).clientX - rect.left || (event as TouchEvent).touches[0].clientX - rect.left;
     this.lastY = (event as MouseEvent).clientY - rect.top || (event as TouchEvent).touches[0].clientY- rect.top;
-    /*
-    this.isDrawing = true;
-    this.context.beginPath();
-    const rect = this.myCanvas.nativeElement.getBoundingClientRect();
-    this.context.moveTo(
-      (event as MouseEvent).clientX - rect.left || (event as TouchEvent).touches[0].clientX - rect.left,
-      (event as MouseEvent).clientY - rect.top || (event as TouchEvent).touches[0].clientY - rect.top
-    );*/
   }
 
   draw(event: MouseEvent | TouchEvent): void {
     if (!this.isDrawing) {
       return;
     }
-
     event.preventDefault();
     const rect = this.myCanvas.nativeElement.getBoundingClientRect();
     const currentX = ((event as MouseEvent).clientX || (event as TouchEvent).touches[0].clientX) - rect.left;
@@ -57,28 +57,8 @@ export class SignerComponent {
     this.context.moveTo(this.lastX, this.lastY);
     this.context.lineTo(currentX, currentY);
     this.context.stroke();
-
-    /*
-    const distance = this.distanceBetween(this.lastX, this.lastY, currentX, currentY);
-    const angle = this.angleBetween(this.lastX, this.lastY, currentX, currentY);
-
-    for (let i = 0; i < distance; i += 5) {
-      const x = this.lastX + Math.cos(angle) * i;
-      const y = this.lastY + Math.sin(angle) * i;
-      this.context.lineTo(x, y);
-      this.context.stroke();
-    }*/
-
     this.lastX = currentX;
     this.lastY = currentY;
-
-    /*
-    const rect = this.myCanvas.nativeElement.getBoundingClientRect();
-    this.context.lineTo(
-      (event as MouseEvent).clientX - rect.left || (event as TouchEvent).touches[0].clientX - rect.left,
-      (event as MouseEvent).clientY - rect.top || (event as TouchEvent).touches[0].clientY - rect.top
-    );
-    this.context.stroke();*/
   }
 
   stopDrawing(): void {

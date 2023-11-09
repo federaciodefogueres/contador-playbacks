@@ -1,19 +1,6 @@
 .container {
     padding: unset;
-    .session-container {
-        display: flex;
-        text-align: center;
-        background-color: var(--color-purple-pastel);
-        color: black;
-        font-weight: bold;
-        text-transform: uppercase;
-        .session {
-
-        }
-        .asociacion {
-
-        }
-    }
+    //margin: unset;
 
     .mail {
         input {
@@ -63,15 +50,17 @@
             }
         }
 
+        .send-button {
+            min-width: 5rem;
+            max-width: 15rem;
+            width: 75%;
+            margin: auto;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: darken($color: #EEF1FF, $amount: 40);
+            background-color: var(--color-blue-pastel);
+        }
         
     }
 
-    .send-button {
-        width: 15rem;
-        margin: auto;
-        font-weight: bold;
-        text-transform: uppercase;
-        color: darken($color: #EEF1FF, $amount: 40);
-        background-color: var(--color-blue-pastel);
-    }
 }

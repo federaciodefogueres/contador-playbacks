@@ -1,22 +1,5 @@
 <form class="container" [formGroup]="registryForm">
 
-    <div class="container p-3 session-container">
-        <div class="col-3">
-            <img src="../../../assets/logofede.png" class="img-fluid" alt="">
-        </div>
-        <div class="col">
-            <div class="row session">
-                <div class="col">
-                    Eliminatoria - Adultos - 18 nov 2023
-                </div>
-            </div>
-            <div class="row asociacion">
-                <div class="col">
-                    Registro Foguera de prueba
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="row m-3 mail">
         <p class="p-0">Email de la asociación</p>
@@ -31,7 +14,7 @@
         <app-signer #signer [width]="calculatedSize.width" [height]="calculatedSize.height" class="signer"></app-signer>
     </div>
 
-    <div class="container p-3 my-3 timers">
+    <div class="container p-3 timers">
 
         <div class="row text-center titles">
             <p class="p-0 m-0">
@@ -61,11 +44,12 @@
             >
         </div>
 
+        <div class="row">
+            <button class="btn btn-primary send-button" (click)="sendEmail()">Enviar</button>
+        </div>
+
     </div>
 
-    <div class="row m-3">
-        <button class="btn btn-primary send-button" (click)="sendEmail()">Enviar</button>
-    </div>
 
 </form>
 <div class="alert alert-success" role="alert" *ngIf="emailStatus === 'sentOK'">
