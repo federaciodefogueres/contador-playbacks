@@ -1,4 +1,5 @@
 export * from './asociacion';
+export * from './asociacionResponse';
 export * from './asociacionesResponse';
 export * from './emailItem';
 export * from './inlineResponse200';

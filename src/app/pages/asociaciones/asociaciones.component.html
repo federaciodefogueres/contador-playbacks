@@ -13,6 +13,11 @@
       </tr>
     </table>
   </div>
+
+  <div class="row mt-5">
+    <button class="btn btn-primary create-button" (click)="changeView()">Crear asociación</button>
+  </div>
+
 </div>
 
 <app-asociacion *ngIf="view === 'component'" [association]="asociacionSelected!" (onBack)="changeView()"></app-asociacion>
