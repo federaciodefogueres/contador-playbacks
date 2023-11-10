@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { HeaderComponent } from './header/header.component';
 import { SelectorComponent } from './selector/selector.component';
+import { AsociacionComponent } from './asociacion/asociacion.component';
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   declarations: [
@@ -14,16 +16,19 @@ import { SelectorComponent } from './selector/selector.component';
     ConfirmRegistrationComponent,
     SignerComponent,
     HeaderComponent,
-    SelectorComponent
+    SelectorComponent,
+    AsociacionComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    BsDropdownModule
+    BsDropdownModule,
+    SharedModule
   ],
   exports: [
     TimerComponent,
-    HeaderComponent
+    HeaderComponent,
+    AsociacionComponent
   ]
 })
 export class ComponentsModule { }

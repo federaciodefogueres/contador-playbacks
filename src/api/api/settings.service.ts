@@ -59,7 +59,7 @@ export class SettingsService {
     /**
      * send an email
      * Sends an email from the system
-     * @param body Data to send
+     * @param body 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */

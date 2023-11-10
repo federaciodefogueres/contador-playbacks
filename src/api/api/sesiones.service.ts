@@ -17,6 +17,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { InlineResponse200 } from '../model/inlineResponse200';
+import { Session } from '../model/session';
 import { SessionResponse } from '../model/sessionResponse';
 import { SessionsResponse } from '../model/sessionsResponse';
 
@@ -55,6 +57,50 @@ export class SesionesService {
         return false;
     }
 
+
+    /**
+     * 
+     * Crea una sesión
+     * @param body 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public createSesion(body?: Session, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse200>;
+    public createSesion(body?: Session, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse200>>;
+    public createSesion(body?: Session, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse200>>;
+    public createSesion(body?: Session, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<InlineResponse200>('post',`${this.basePath}/sesiones`,
+            {
+                body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * 
