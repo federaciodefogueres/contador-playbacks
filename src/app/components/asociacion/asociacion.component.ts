@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Asociacion, AsociacionesResponse, AsociacionesService, InlineResponse200 } from 'src/api';
+import { Asociacion, AsociacionesService, InlineResponse200 } from 'src/api';
 
 export type Action = 'Crear' | 'Editar';
 
@@ -71,7 +71,7 @@ export class AsociacionComponent {
     this.associationService.createAsociacion(association).subscribe((res: InlineResponse200) => {
       console.log(res)
       if (res.status?.code === '200'){
-        this.router.navigateByUrl('asociaciones');
+        this.back();
       } else {
         console.log('Error');
       }
@@ -80,16 +80,23 @@ export class AsociacionComponent {
 
   updateAssociation(association: Asociacion): void {
     console.log('Update not implemented. -> ', association);
-    /*this.associationService.updateAssociation(association).subscribe(() => {
-      this.loadAssociations();
-    });*/
+    this.associationService.putAsociacion(association.id!, association).subscribe((res: InlineResponse200) => {
+      if (res.status?.code === '200'){
+        this.back();
+      } else {
+        console.log('Error');
+      }
+    })
   }
 
   deleteAssociation(id: string): void {
-    console.log('Delete not implemented. -> ', id);
-    /*this.associationService.deleteAssociation(id).subscribe(() => {
-      this.loadAssociations();
-    });*/
+    this.associationService.deleteAsociacion(id).subscribe((res: InlineResponse200) => {
+      if (res.status?.code === '200'){
+        this.back();
+      } else {
+        console.log('Error');
+      }
+    })
   }
 
   back() {

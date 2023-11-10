@@ -43,6 +43,7 @@ export class AsociacionesComponent {
 
   changeView(association?: Asociacion) {
     if (this.view === 'component') {
+      this.loadAssociations();
       this.view = 'list';
     } else if (this.view === 'list') {
       this.viewAssociation(association!)

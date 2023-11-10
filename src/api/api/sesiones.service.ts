@@ -18,7 +18,6 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { InlineResponse200 } from '../model/inlineResponse200';
-import { InlineResponse2001 } from '../model/inlineResponse2001';
 import { Session } from '../model/session';
 import { SessionResponse } from '../model/sessionResponse';
 import { SessionsResponse } from '../model/sessionsResponse';
@@ -110,9 +109,9 @@ export class SesionesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteSesion(idSession: string, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2001>;
-    public deleteSesion(idSession: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2001>>;
-    public deleteSesion(idSession: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2001>>;
+    public deleteSesion(idSession: string, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse200>;
+    public deleteSesion(idSession: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse200>>;
+    public deleteSesion(idSession: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse200>>;
     public deleteSesion(idSession: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (idSession === null || idSession === undefined) {
@@ -134,7 +133,7 @@ export class SesionesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<InlineResponse2001>('delete',`${this.basePath}/sesiones/${encodeURIComponent(String(idSession))}`,
+        return this.httpClient.request<InlineResponse200>('delete',`${this.basePath}/sesiones/${encodeURIComponent(String(idSession))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -229,9 +228,9 @@ export class SesionesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public putSesion(idSession: string, body?: Session, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2001>;
-    public putSesion(idSession: string, body?: Session, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2001>>;
-    public putSesion(idSession: string, body?: Session, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2001>>;
+    public putSesion(idSession: string, body?: Session, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse200>;
+    public putSesion(idSession: string, body?: Session, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse200>>;
+    public putSesion(idSession: string, body?: Session, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse200>>;
     public putSesion(idSession: string, body?: Session, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (idSession === null || idSession === undefined) {
@@ -259,7 +258,7 @@ export class SesionesService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<InlineResponse2001>('put',`${this.basePath}/sesiones/${encodeURIComponent(String(idSession))}`,
+        return this.httpClient.request<InlineResponse200>('put',`${this.basePath}/sesiones/${encodeURIComponent(String(idSession))}`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
