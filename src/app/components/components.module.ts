@@ -9,6 +9,8 @@ import { HeaderComponent } from './header/header.component';
 import { SelectorComponent } from './selector/selector.component';
 import { AsociacionComponent } from './asociacion/asociacion.component';
 import { SharedModule } from '../shared.module';
+import { SesionComponent } from './sesion/sesion.component';
+import { ParticipantesComponent } from './participantes/participantes.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { SharedModule } from '../shared.module';
     SignerComponent,
     HeaderComponent,
     SelectorComponent,
-    AsociacionComponent
+    AsociacionComponent,
+    SesionComponent,
+    ParticipantesComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,8 @@ import { SharedModule } from '../shared.module';
   exports: [
     TimerComponent,
     HeaderComponent,
-    AsociacionComponent
+    AsociacionComponent,
+    SesionComponent
   ]
 })
 export class ComponentsModule { }

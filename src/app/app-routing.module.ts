@@ -4,12 +4,14 @@ import { TimerPageComponent } from './pages/timer-page/timer-page.component';
 import { ConfirmRegistrationComponent } from './components/confirm-registration/confirm-registration.component';
 import { TimerFullscreenComponent } from './pages/timer-fullscreen/timer-fullscreen.component';
 import { AsociacionesComponent } from './pages/asociaciones/asociaciones.component';
+import { SesionesComponent } from './pages/sesiones/sesiones.component';
 
 const routes: Routes = [
   { path: '', component: TimerPageComponent },
   { path: 'validar', component: ConfirmRegistrationComponent },
   { path: 'timer', component: TimerFullscreenComponent },
-  { path: 'asociaciones', component: AsociacionesComponent }
+  { path: 'asociaciones', component: AsociacionesComponent },
+  { path: 'sesiones', component: SesionesComponent }
 ];
 
 @NgModule({
