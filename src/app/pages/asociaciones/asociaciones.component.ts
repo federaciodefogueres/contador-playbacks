@@ -14,6 +14,7 @@ export class AsociacionesComponent {
   associations: Asociacion[] = [];
   public newAssociationForm!: FormGroup;
   @Input() view: ViewFormat = 'list';
+  loading: boolean = true;
 
   asociacionSelected: Asociacion | null = null;
 
@@ -23,6 +24,8 @@ export class AsociacionesComponent {
     ) { }
 
   ngOnInit(): void {
+    let appSelector = document.querySelector('app-selector');
+    appSelector?.remove();
     this.loadForm();
     this.loadAssociations();
   }
@@ -38,6 +41,7 @@ export class AsociacionesComponent {
   loadAssociations(): void {
     this.associationService.getAllAsociaciones().subscribe((associations: AsociacionesResponse) => {
       this.associations = associations.participants!;
+      this.loading = false;
     });
   }
 

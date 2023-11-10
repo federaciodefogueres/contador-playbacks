@@ -11,7 +11,6 @@ export class TimerFullscreenComponent {
 
   ngOnInit() {
     let appHeader = document.querySelector('app-header');
-    console.log(appHeader)
     appHeader?.remove();
     this.loading = false;
   }
