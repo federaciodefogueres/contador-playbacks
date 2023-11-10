@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-export interface Response200 { 
-    code?: string;
-    message: string;
+export interface TypeSession { 
+    id?: number;
+    type_normalized?: string;
 }

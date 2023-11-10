@@ -1,4 +1,3 @@
-import { formatCurrency } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Asociacion, EmailItem, InlineResponse200, Session, SettingsService } from 'src/api';

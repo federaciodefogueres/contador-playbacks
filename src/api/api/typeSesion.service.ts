@@ -17,16 +17,14 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Asociacion } from '../model/asociacion';
-import { AsociacionesResponse } from '../model/asociacionesResponse';
-import { InlineResponse200 } from '../model/inlineResponse200';
+import { TypeSessionResponse } from '../model/typeSessionResponse';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class AsociacionesService {
+export class TypeSesionService {
 
     protected basePath = 'https://virtserver.swaggerhub.com/federaciodefogueres/contador-playbacks-api/1.0.0';
     public defaultHeaders = new HttpHeaders();
@@ -59,58 +57,14 @@ export class AsociacionesService {
 
     /**
      * 
-     * Crea una asociación
-     * @param body 
+     * Devuelve todas las sesiones con su información.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public createAsociacion(body?: Asociacion, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse200>;
-    public createAsociacion(body?: Asociacion, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse200>>;
-    public createAsociacion(body?: Asociacion, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse200>>;
-    public createAsociacion(body?: Asociacion, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-            'application/json'
-        ];
-        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
-        if (httpContentTypeSelected != undefined) {
-            headers = headers.set('Content-Type', httpContentTypeSelected);
-        }
-
-        return this.httpClient.request<InlineResponse200>('post',`${this.basePath}/asociaciones`,
-            {
-                body: body,
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * Devuelve todas las asociaciones con su información.
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getAllAsociaciones(observe?: 'body', reportProgress?: boolean): Observable<AsociacionesResponse>;
-    public getAllAsociaciones(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AsociacionesResponse>>;
-    public getAllAsociaciones(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AsociacionesResponse>>;
-    public getAllAsociaciones(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllTypeSesion(observe?: 'body', reportProgress?: boolean): Observable<TypeSessionResponse>;
+    public getAllTypeSesion(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<TypeSessionResponse>>;
+    public getAllTypeSesion(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<TypeSessionResponse>>;
+    public getAllTypeSesion(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -127,7 +81,7 @@ export class AsociacionesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<AsociacionesResponse>('get',`${this.basePath}/asociaciones`,
+        return this.httpClient.request<TypeSessionResponse>('get',`${this.basePath}/typeSesion`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

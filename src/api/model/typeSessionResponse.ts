@@ -9,8 +9,10 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+import { Response200 } from './response200';
+import { TypeSession } from './typeSession';
 
-export interface Response200 { 
-    code?: string;
-    message: string;
+export interface TypeSessionResponse { 
+    status?: Response200;
+    types?: Array<TypeSession>;
 }
