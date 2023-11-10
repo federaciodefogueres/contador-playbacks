@@ -6,3 +6,5 @@ export * from './response200';
 export * from './session';
 export * from './sessionResponse';
 export * from './sessionsResponse';
+export * from './typeSession';
+export * from './typeSessionResponse';

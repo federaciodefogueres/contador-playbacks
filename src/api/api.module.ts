@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AsociacionesService } from './api/asociaciones.service';
 import { SesionesService } from './api/sesiones.service';
 import { SettingsService } from './api/settings.service';
+import { TypeSesionService } from './api/typeSesion.service';
 
 @NgModule({
   imports:      [],
@@ -14,7 +15,8 @@ import { SettingsService } from './api/settings.service';
   providers: [
     AsociacionesService,
     SesionesService,
-    SettingsService ]
+    SettingsService,
+    TypeSesionService ]
 })
 export class ApiModule {
     public static forRoot(configurationFactory: () => Configuration): ModuleWithProviders<ApiModule> {

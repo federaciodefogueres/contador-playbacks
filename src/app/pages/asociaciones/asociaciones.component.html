@@ -1,0 +1,18 @@
+<div class="container p-5" *ngIf="view === 'list'">
+  <div class="listado">
+    <table class="w-100">
+      <tr>
+        <th>Asociación</th>
+        <th>Ver</th>
+      </tr>
+      <tr *ngFor="let association of associations">
+        <td>{{ association.title }}</td>
+        <td>
+          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="visibility" (click)="changeView(association)"></mat-icon>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<app-asociacion *ngIf="view === 'component'" [association]="asociacionSelected!" (onBack)="changeView()"></app-asociacion>

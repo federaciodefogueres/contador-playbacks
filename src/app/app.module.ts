@@ -21,16 +21,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     ComponentsModule,
     PagesModule,
-    ApiModule,
-    HttpClientModule,
-    ReactiveFormsModule,
   ],
   exports: [
     ComponentsModule,
     PagesModule,
-    ApiModule,
-    HttpClientModule,
-    ReactiveFormsModule
   ],
   providers: [
     {
