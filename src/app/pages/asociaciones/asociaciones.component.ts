@@ -12,7 +12,6 @@ export type ViewFormat = 'list' | 'component';
 export class AsociacionesComponent {
 
   associations: Asociacion[] = [];
-  public newAssociationForm!: FormGroup;
   @Input() view: ViewFormat = 'list';
   loading: boolean = true;
 
@@ -26,16 +25,7 @@ export class AsociacionesComponent {
   ngOnInit(): void {
     let appSelector = document.querySelector('app-selector');
     appSelector?.remove();
-    this.loadForm();
     this.loadAssociations();
-  }
-
-  loadForm() {
-    this.newAssociationForm = this.fb.group({
-      id: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      title: new FormControl('', Validators.required),
-    });
   }
 
   loadAssociations(): void {
@@ -57,18 +47,6 @@ export class AsociacionesComponent {
 
   viewAssociation(association: Asociacion): void {
     this.asociacionSelected = association;
-  }
-
-  createAssociation(): void {
-    let association: Asociacion = {
-      id: this.newAssociationForm.controls['id'].value,
-      email: this.newAssociationForm.controls['email'].value,
-      title: this.newAssociationForm.controls['title'].value
-    }
-    console.log(this.newAssociationForm, association);
-    this.associationService.createAsociacion(association).subscribe(() => {
-      this.loadAssociations();
-    });
   }
 
 }

@@ -5,13 +5,15 @@ import { TimerFullscreenComponent } from './timer-fullscreen/timer-fullscreen.co
 import { AsociacionesComponent } from './asociaciones/asociaciones.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared.module';
+import { SesionesComponent } from './sesiones/sesiones.component';
 
 
 
 @NgModule({
   declarations: [
     TimerFullscreenComponent,
-    AsociacionesComponent
+    AsociacionesComponent,
+    SesionesComponent
   ],
   imports: [
     CommonModule,
