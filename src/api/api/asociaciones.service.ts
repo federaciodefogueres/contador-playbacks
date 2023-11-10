@@ -18,8 +18,10 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { Asociacion } from '../model/asociacion';
+import { AsociacionResponse } from '../model/asociacionResponse';
 import { AsociacionesResponse } from '../model/asociacionesResponse';
 import { InlineResponse200 } from '../model/inlineResponse200';
+import { InlineResponse2001 } from '../model/inlineResponse2001';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -103,6 +105,47 @@ export class AsociacionesService {
 
     /**
      * 
+     * Borra los datos de la asociación pasada por parámetro.
+     * @param idAsociacion 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteAsociacion(idAsociacion: string, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2001>;
+    public deleteAsociacion(idAsociacion: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2001>>;
+    public deleteAsociacion(idAsociacion: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2001>>;
+    public deleteAsociacion(idAsociacion: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (idAsociacion === null || idAsociacion === undefined) {
+            throw new Error('Required parameter idAsociacion was null or undefined when calling deleteAsociacion.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<InlineResponse2001>('delete',`${this.basePath}/asociaciones/${encodeURIComponent(String(idAsociacion))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
      * Devuelve todas las asociaciones con su información.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -129,6 +172,96 @@ export class AsociacionesService {
 
         return this.httpClient.request<AsociacionesResponse>('get',`${this.basePath}/asociaciones`,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * Devuelve todos los datos de la asociación consultada
+     * @param idAsociacion 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getAsociacion(idAsociacion: string, observe?: 'body', reportProgress?: boolean): Observable<AsociacionResponse>;
+    public getAsociacion(idAsociacion: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<AsociacionResponse>>;
+    public getAsociacion(idAsociacion: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<AsociacionResponse>>;
+    public getAsociacion(idAsociacion: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (idAsociacion === null || idAsociacion === undefined) {
+            throw new Error('Required parameter idAsociacion was null or undefined when calling getAsociacion.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<AsociacionResponse>('get',`${this.basePath}/asociaciones/${encodeURIComponent(String(idAsociacion))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * Actualizar una asociación
+     * @param idAsociacion 
+     * @param body Item to add
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public putAsociacion(idAsociacion: string, body?: Asociacion, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2001>;
+    public putAsociacion(idAsociacion: string, body?: Asociacion, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2001>>;
+    public putAsociacion(idAsociacion: string, body?: Asociacion, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2001>>;
+    public putAsociacion(idAsociacion: string, body?: Asociacion, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (idAsociacion === null || idAsociacion === undefined) {
+            throw new Error('Required parameter idAsociacion was null or undefined when calling putAsociacion.');
+        }
+
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<InlineResponse2001>('put',`${this.basePath}/asociaciones/${encodeURIComponent(String(idAsociacion))}`,
+            {
+                body: body,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

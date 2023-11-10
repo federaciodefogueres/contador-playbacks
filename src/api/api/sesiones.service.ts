@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { InlineResponse200 } from '../model/inlineResponse200';
+import { InlineResponse2001 } from '../model/inlineResponse2001';
 import { Session } from '../model/session';
 import { SessionResponse } from '../model/sessionResponse';
 import { SessionsResponse } from '../model/sessionsResponse';
@@ -104,6 +105,47 @@ export class SesionesService {
 
     /**
      * 
+     * Borra los datos de la sesión pasada por parámetro.
+     * @param idSession 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteSesion(idSession: string, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2001>;
+    public deleteSesion(idSession: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2001>>;
+    public deleteSesion(idSession: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2001>>;
+    public deleteSesion(idSession: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (idSession === null || idSession === undefined) {
+            throw new Error('Required parameter idSession was null or undefined when calling deleteSesion.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<InlineResponse2001>('delete',`${this.basePath}/sesiones/${encodeURIComponent(String(idSession))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
      * Devuelve todas las sesiones con su información.
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -171,6 +213,55 @@ export class SesionesService {
 
         return this.httpClient.request<SessionResponse>('get',`${this.basePath}/sesiones/${encodeURIComponent(String(idSession))}`,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * Actualizar una sesión
+     * @param idSession 
+     * @param body Item to add
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public putSesion(idSession: string, body?: Session, observe?: 'body', reportProgress?: boolean): Observable<InlineResponse2001>;
+    public putSesion(idSession: string, body?: Session, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<InlineResponse2001>>;
+    public putSesion(idSession: string, body?: Session, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<InlineResponse2001>>;
+    public putSesion(idSession: string, body?: Session, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (idSession === null || idSession === undefined) {
+            throw new Error('Required parameter idSession was null or undefined when calling putSesion.');
+        }
+
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+            'application/json'
+        ];
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set('Content-Type', httpContentTypeSelected);
+        }
+
+        return this.httpClient.request<InlineResponse2001>('put',`${this.basePath}/sesiones/${encodeURIComponent(String(idSession))}`,
+            {
+                body: body,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
