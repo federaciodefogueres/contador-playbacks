@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Asociacion, AsociacionesResponse, AsociacionesService } from 'src/api';
+import { Component, Input } from '@angular/core';
+import { Asociacion, AsociacionesResponse, AsociacionesService, SesionesService, Session, SessionResponse } from 'src/api';
 import { ChoreService } from 'src/app/services/chore.service';
 
 export interface AsociacionCheck {
@@ -17,14 +17,37 @@ export class ParticipantesComponent {
 
   asociaciones: Asociacion[] = [];
   asociacionesShow: AsociacionCheck[] = [];
+  loading: boolean = true;
+
+  @Input() session: Session = {};
 
   constructor(
     private asociacionesService: AsociacionesService,
+    private sessionService: SesionesService,
     private choreService: ChoreService
   ) {}
 
   ngOnInit() {
     this.loadAsociacionesData();
+  }
+
+  loadAsociacionesFromSession() {
+    this.sessionService.getSession(this.session.id!).subscribe((res: SessionResponse) => {
+      if (res.status?.code === '200') {
+        let asociacionesRelation: Asociacion[] = [];
+        this.asociacionesShow.map(asociacion => {
+          for(let participant of res.session?.participants!) {
+            if (participant.id === asociacion.id) {
+              asociacion.checked = true;
+              asociacionesRelation.push(participant);
+            }
+          }
+        })
+        console.log(asociacionesRelation);
+        this.choreService.setAsociacionesSelected(asociacionesRelation);
+        this.loading = false;
+      }
+    })
   }
 
   loadAsociacionesData() {
@@ -34,6 +57,7 @@ export class ParticipantesComponent {
         asociaciones.participants?.map(asociacion => {
           this.asociacionesShow.push({id: asociacion.id!, title: asociacion.title!, checked: false});
         })
+        this.loadAsociacionesFromSession();
       }
     })
   }
@@ -43,7 +67,7 @@ export class ParticipantesComponent {
     let asociacionFind = this.asociaciones.find(asociacionData => {
       return asociacion.id === asociacionData.id;
     })
-    this.choreService.setAsociacionesSelected(asociacionFind!)
+    this.choreService.addAsociacionesSelected(asociacionFind!)
   }
 
 }

@@ -29,7 +29,6 @@
     </div>
 </div>
 <div class="container" *ngIf="manageVarticipantesShow">
-    <app-participantes>
-    </app-participantes>
+    <app-participantes [session]="session"></app-participantes>
     <button class="btn btn-primary" (click)="manageParticipants()">Volver</button>
 </div>
