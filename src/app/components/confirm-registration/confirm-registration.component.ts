@@ -86,7 +86,7 @@ export class ConfirmRegistrationComponent {
       let body: EmailItem = {
         subject: 'Envío de resultados FFSJ',
         content: `
-          <h1>XXXIII Certamen Artístico Fogueres de Sant Joan</h1>
+          <h1>XXXV Certamen Artístico Fogueres de Sant Joan</h1>
           <h3>Sesión: ${this.session?.session_title}</h3>
           <h3>Asociación participante: ${this.asociacion?.title}</h3>
           <p>¡Hola! Este es un coreo automático generado por nuestro asistente virtual. El tiempo registrado por tu asociación han sido los siguientes:</p>

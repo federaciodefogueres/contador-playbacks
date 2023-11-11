@@ -39,8 +39,8 @@ export class TimerComponent {
   }
 
   timer: TimerClockModel = {
-    minutes: 2,
-    seconds: 2,
+    minutes: 4,
+    seconds: 0,
   };
 
   loading: boolean = true;
