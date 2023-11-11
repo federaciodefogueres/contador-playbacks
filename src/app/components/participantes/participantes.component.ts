@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Asociacion, AsociacionesResponse, AsociacionesService, SesionesService, Session, SessionResponse } from 'src/api';
 import { ChoreService } from 'src/app/services/chore.service';
 
@@ -14,6 +14,8 @@ export interface AsociacionCheck {
   styleUrls: ['./participantes.component.scss']
 })
 export class ParticipantesComponent {
+
+  @Output() asociacionChecked: EventEmitter<Asociacion> = new EventEmitter<{}>;
 
   asociaciones: Asociacion[] = [];
   asociacionesShow: AsociacionCheck[] = [];
@@ -32,21 +34,16 @@ export class ParticipantesComponent {
   }
 
   loadAsociacionesFromSession() {
-    this.sessionService.getSession(this.session.id!).subscribe((res: SessionResponse) => {
-      if (res.status?.code === '200') {
-        let asociacionesRelation: Asociacion[] = [];
-        this.asociacionesShow.map(asociacion => {
-          for(let participant of res.session?.participants!) {
-            if (participant.id === asociacion.id) {
-              asociacion.checked = true;
-              asociacionesRelation.push(participant);
-            }
+    this.choreService.asociacionesSelectedsObservable.subscribe((asociaciones: Asociacion[]) => {
+      if (asociaciones.length > 0) {
+        this.asociacionesShow.map((asociacionShow: AsociacionCheck) => {
+          const index = asociaciones.findIndex(asoc => asoc.id === asociacionShow.id);
+          if (index !== -1) {
+            asociacionShow.checked = true;
           }
         })
-        console.log(asociacionesRelation);
-        this.choreService.setAsociacionesSelected(asociacionesRelation);
-        this.loading = false;
       }
+      this.loading = false;
     })
   }
 

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Asociacion, InlineResponse200, SesionesService, Session } from 'src/api';
+import { Asociacion, InlineResponse200, SesionesService, Session, SessionResponse } from 'src/api';
 import { Action } from '../asociacion/asociacion.component';
 import { ChoreService } from 'src/app/services/chore.service';
 
@@ -17,9 +17,15 @@ export class SesionComponent {
   public newSessionForm!: FormGroup;
   loading: boolean = true;
   action: Action = 'Crear';
+  
+  manageVarticipantesShow: boolean = false;
   asociacionesRelatedToSesion: Asociacion[] = [];
 
-  manageVarticipantesShow: boolean = false;
+  constructor(
+    private fb: FormBuilder,
+    private sessionService: SesionesService,
+    private choreService: ChoreService
+  ) {}
 
   ngOnInit() {
     this.choreService.asociacionesSelectedsObservable.subscribe(res => {
@@ -35,16 +41,19 @@ export class SesionComponent {
       }
       this.action = 'Crear'
     } else {
+      this.loadAsociacionesFromSesion();
       this.action = 'Editar';
     }
     this.loadForm();
   }
 
-  constructor(
-    private fb: FormBuilder,
-    private sessionService: SesionesService,
-    private choreService: ChoreService
-  ) {}
+  loadAsociacionesFromSesion() {
+    this.sessionService.getSession(this.session.id!).subscribe((res: SessionResponse) => {
+      if (res.status?.code === '200') {
+        this.choreService.setAsociacionesSelected(res.session?.participants!);
+      }
+    })
+  }
 
   loadForm() {
     this.newSessionForm = this.fb.group({
