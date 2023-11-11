@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { InlineResponse200, SesionesService, Session } from 'src/api';
+import { Asociacion, InlineResponse200, SesionesService, Session, SessionResponse } from 'src/api';
 import { Action } from '../asociacion/asociacion.component';
+import { ChoreService } from 'src/app/services/chore.service';
 
 @Component({
   selector: 'app-sesion',
@@ -16,10 +17,20 @@ export class SesionComponent {
   public newSessionForm!: FormGroup;
   loading: boolean = true;
   action: Action = 'Crear';
-
+  
   manageVarticipantesShow: boolean = false;
+  asociacionesRelatedToSesion: Asociacion[] = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private sessionService: SesionesService,
+    private choreService: ChoreService
+  ) {}
 
   ngOnInit() {
+    this.choreService.asociacionesSelectedsObservable.subscribe(res => {
+      this.asociacionesRelatedToSesion = res;
+    })
     console.log(this.session)
     if (!Boolean(this.session)) {
       console.log('No existe')
@@ -30,15 +41,19 @@ export class SesionComponent {
       }
       this.action = 'Crear'
     } else {
+      this.loadAsociacionesFromSesion();
       this.action = 'Editar';
     }
     this.loadForm();
   }
 
-  constructor(
-    private fb: FormBuilder,
-    private sessionService: SesionesService,
-  ) {}
+  loadAsociacionesFromSesion() {
+    this.sessionService.getSession(this.session.id!).subscribe((res: SessionResponse) => {
+      if (res.status?.code === '200') {
+        this.choreService.setAsociacionesSelected(res.session?.participants!);
+      }
+    })
+  }
 
   loadForm() {
     this.newSessionForm = this.fb.group({
@@ -55,9 +70,9 @@ export class SesionComponent {
         session_title: this.newSessionForm.controls['session_title'].value,
         type: parseInt(this.newSessionForm.controls['type'].value),
         type_normalized: '',
-        participants: []
+        participants: this.asociacionesRelatedToSesion
       }
-      console.log(this.newSessionForm, session);
+      console.log(session);
       if (this.action === 'Crear') {
         this.create(session);
       } else if (this.action === 'Editar') {
@@ -70,7 +85,6 @@ export class SesionComponent {
 
   create(session: Session): void {
     this.sessionService.createSesion(session).subscribe((res: InlineResponse200) => {
-      console.log(res)
       if (res.status?.code === '200'){
         this.back();
       } else {
@@ -80,7 +94,6 @@ export class SesionComponent {
   }
 
   update(session: Session): void {
-    console.log('Update not implemented. -> ', session);
     this.sessionService.putSesion(session.id!, session).subscribe((res: InlineResponse200) => {
       if (res.status?.code === '200'){
         this.back();
@@ -101,7 +114,6 @@ export class SesionComponent {
   }
 
   manageParticipants() {
-    console.log('Manage participants');
     this.manageVarticipantesShow = !this.manageVarticipantesShow;
   }
 

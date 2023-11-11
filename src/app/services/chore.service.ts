@@ -10,8 +10,12 @@ export class ChoreService {
   private sessionSelected$ = new BehaviorSubject<Session | null>(null);
   sessionSelectedObservable = this.sessionSelected$.asObservable();
 
-  private asociacionelected$ = new BehaviorSubject<Asociacion | null>(null);
-  asociacionSelectedObservable = this.asociacionelected$.asObservable();
+  private asociacionselected$ = new BehaviorSubject<Asociacion | null>(null);
+  asociacionSelectedObservable = this.asociacionselected$.asObservable();
+
+  public asociacionesArray: Asociacion[] =  [];
+  private asociacionesSelecteds$ = new BehaviorSubject<Asociacion[]>([]);
+  asociacionesSelectedsObservable = this.asociacionesSelecteds$.asObservable();
 
   constructor() { }
 
@@ -20,7 +24,23 @@ export class ChoreService {
   }
 
   setAsociacionSelected(asociacion: Asociacion | null) {
-    this.asociacionelected$.next(asociacion);
+    this.asociacionselected$.next(asociacion);
+  }
+
+  addAsociacionesSelected(asociacion: Asociacion) {
+    const index = this.asociacionesArray.findIndex(arr => arr.id === asociacion.id);
+    if (index === -1) {
+      this.asociacionesArray.push(asociacion);
+    } else {
+      this.asociacionesArray.splice(index, 1);
+    }
+    console.log(this.asociacionesArray)
+    this.asociacionesSelecteds$.next(this.asociacionesArray);
+  }
+
+  setAsociacionesSelected(asociaciones: Asociacion[]) {
+    this.asociacionesArray = asociaciones;
+    this.asociacionesSelecteds$.next(asociaciones);
   }
 
 }

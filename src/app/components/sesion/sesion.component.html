@@ -23,13 +23,12 @@
     </form>
 
     <div class="row w-75 m-auto">
-        <button class="btn btn-primary action-button" (click)="processAction()">{{action}}</button>
         <button class="btn btn-primary" (click)="manageParticipants()">Administrar participantes</button>
+        <button class="btn btn-primary action-button" (click)="processAction()">{{action}}</button>
         <button class="btn btn-primary action-button delete-button" (click)="delete(session.id!)" *ngIf="action === 'Editar'">Borrar</button>
     </div>
 </div>
 <div class="container" *ngIf="manageVarticipantesShow">
-    <app-participantes>
-    </app-participantes>
+    <app-participantes [session]="session"></app-participantes>
     <button class="btn btn-primary" (click)="manageParticipants()">Volver</button>
 </div>
