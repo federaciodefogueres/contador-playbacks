@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "contador-playbacks"
+  },
+  "targets": {
+    "contador-playbacks": {
+      "hosting": {
+        "contador-playbacks": [
+          "contador-playbacks"
+        ]
+      }
+    }
+  }
+}
