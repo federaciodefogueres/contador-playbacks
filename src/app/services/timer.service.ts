@@ -17,6 +17,7 @@ export interface TimerStatus {
 @Injectable({
   providedIn: 'root'
 })
+@Injectable()
 export class TimerService {
 
   timers: TimerStatus[] = [];
