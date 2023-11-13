@@ -23,8 +23,6 @@ export class SesionesComponent {
     ) { }
 
   ngOnInit(): void {
-    let appSelector = document.querySelector('app-selector');
-    appSelector?.remove();
     this.loadAssociations();
   }
 

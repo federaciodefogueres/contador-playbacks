@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
+import { AuthService } from "src/app/services/auth.service";
 import { TimerService } from "src/app/services/timer.service";
 
 export type TimerTitleType = 'entrada' | 'salida';
@@ -23,9 +24,19 @@ export class TimerPageComponent {
     sec: 0
   }
 
+  loading: boolean = true;
+
+  ngOnInit() {
+    let appHeader = document.querySelector('app-header');
+    ///appHeader?.remove();
+    appHeader?.setAttribute('style', 'display: flex')
+    this.loading = false;
+  }
+
   constructor(
     public timerService: TimerService,
-    private route: Router
+    private route: Router,
+    public authService: AuthService
     ) { }
 
   resetTimer() {
