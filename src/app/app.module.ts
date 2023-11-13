@@ -10,6 +10,10 @@ import { ApiModule, BASE_PATH } from 'src/api';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 import { ReactiveFormsModule } from '@angular/forms';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 
 @NgModule({
   declarations: [
@@ -21,12 +25,19 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     ComponentsModule,
     PagesModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
   ],
   exports: [
     ComponentsModule,
     PagesModule,
   ],
-  providers: [
+  providers: [  
+    {
+      provide: FIREBASE_OPTIONS, 
+      useValue: environment.firebase
+    },
     {
       provide: BASE_PATH,
       useValue: environment.API_BASE_PATH
