@@ -2,21 +2,23 @@
 
     <div class="p-3 timers">
         <div class="row d-flex text-center titles">
-            <div class="col">Tiempo de entrada</div>
-            <div class="col">Tiempo de salida</div>
+            <div class="col" *ngIf="timerTitle === 'entrada'">Tiempo de entrada</div>
+            <div class="col" *ngIf="timerTitle === 'salida'">Tiempo de salida</div>
         </div>
-        <div class="row justify-content-center times m-3">
-            <app-timer class="col p-0" [timerId]="'entryTimer'"></app-timer>
-            <app-timer class="col p-0" [timerId]="'exitTimer'"></app-timer>
+
+        <div class="row my-3" style="height: 50vh;">
+            <app-timer></app-timer>
         </div>
-        <div class="row m-0 p-0">
+        <div class="row">
             <div class="col d-flex justify-content-center timer-button">
-                <button (click)="changeEntryTimer({name: 'entryTimer', status: true, value: ''})" *ngIf="!entryTimerStatus.status" class="btn btn-success activate-button">Activar</button>
-                <button (click)="changeEntryTimer({name: 'entryTimer', status: false, value: ''})" *ngIf="entryTimerStatus.status" class="btn btn-danger stop-button">Parar</button>
+                <button (click)="timerService.changeTimer()" *ngIf="!timerService.timerStatus" class="btn btn-success activate-button" >Activar</button>
+                <button (click)="timerService.changeTimer()" *ngIf="timerService.timerStatus" class="btn btn-danger stop-button">Parar</button>
             </div>
-            <div class="col d-flex justify-content-center timer-button">
-                <button (click)="changeExitTimer({name: 'exitTimer', status: true, value: ''})" *ngIf="!exitTimerStatus.status" class="btn btn-success activate-button">Activar</button>
-                <button (click)="changeExitTimer({name: 'exitTimer', status: false, value: ''})" *ngIf="exitTimerStatus.status" class="btn btn-danger stop-button">Parar</button>
+        </div>
+        <div class="row my-3">
+            <div class="col options-button d-flex justify-content-around">
+                <button (click)="resetTimer()" class="btn btn-danger stop-button">Reset</button>
+                <button (click)="changeTimer()" class="btn btn-primary send-button">{{timerTitle === 'entrada' ? 'Crono Salida' : 'Crono Entrada'}}</button>
             </div>
         </div>
     </div>

@@ -18,9 +18,13 @@
 }
 
 .full-screen{
+    font-size: 45vw !important;
+}
+
+.timer {
     height: 100%;
     width: 100%;
-    font-size: 45vw;
+    font-size: 35vw;
 }
 
 @media screen and (orientation: landscape) {
