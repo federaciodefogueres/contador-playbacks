@@ -12,8 +12,7 @@ export class LoginComponent {
 
   ngOnInit() {
     let appHeader = document.querySelector('app-header');
-    ///appHeader?.remove();
-    appHeader?.setAttribute('style', 'display: none')
+    appHeader?.setAttribute('style', 'display: none');
     this.loading = false;
   }
 

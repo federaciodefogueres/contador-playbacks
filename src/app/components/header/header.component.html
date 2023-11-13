@@ -1,8 +1,8 @@
 <div class="p-3 session-container">
     <div class="col-3 col-md-1">
-        <img src="../../../assets/logofede.png" class="img-fluid" alt="">
+        <img src="../../../assets/logofede.png" class="img-fluid" alt="" (click)="openNav()">
     </div>
-    <div class="col">
+    <div class="col" *ngIf="showSelectors">
         <div class="row px-2">
             <div class="col p-0">
                 <app-selector [type]="'session'"></app-selector>
@@ -14,4 +14,19 @@
             </div>
         </div>
     </div>
+    <div class="col" *ngIf="!showSelectors">
+        <div class="row px-2">
+            <div class="col p-0">
+                <p class="m-0">{{titleHeader}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">×</a>
+    <a (click)="router.navigateByUrl('administracion')">Administración</a>
+    <a (click)="router.navigateByUrl('asociaciones')">Asociaciones</a>
+    <a (click)="router.navigateByUrl('sesiones')">Sesiones</a>
+    <a (click)="authService.logout()">Cerrar sesión</a>
 </div>

@@ -5,14 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './timer-fullscreen.component.html',
   styleUrls: ['./timer-fullscreen.component.scss']
 })
-export class TimerFullscreenComponent {
-
-  loading: boolean = true;
-
-  ngOnInit() {
-    let appHeader = document.querySelector('app-header');
-    appHeader?.remove();
-    this.loading = false;
-  }
-
-}
+export class TimerFullscreenComponent { }
