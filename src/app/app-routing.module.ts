@@ -5,17 +5,22 @@ import { ConfirmRegistrationComponent } from './components/confirm-registration/
 import { TimerFullscreenComponent } from './pages/timer-fullscreen/timer-fullscreen.component';
 import { AsociacionesComponent } from './pages/asociaciones/asociaciones.component';
 import { SesionesComponent } from './pages/sesiones/sesiones.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: TimerPageComponent },
-  { path: 'validar', component: ConfirmRegistrationComponent },
+  { path: 'administracion', component: TimerPageComponent, canActivate: [AuthGuard] },
+  { path: 'validar', component: ConfirmRegistrationComponent, canActivate: [AuthGuard] },
   { path: 'timer', component: TimerFullscreenComponent },
-  { path: 'asociaciones', component: AsociacionesComponent },
-  { path: 'sesiones', component: SesionesComponent }
+  { path: 'asociaciones', component: AsociacionesComponent, canActivate: [AuthGuard] },
+  { path: 'sesiones', component: SesionesComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: '**', component: TimerFullscreenComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

@@ -1,4 +1,4 @@
-<div class="container-timer">
+<div class="container-timer" *ngIf="!loading">
 
     <div class="p-3 timers">
         <div class="row d-flex text-center titles">
@@ -6,7 +6,7 @@
             <div class="col" *ngIf="timerTitle === 'salida'">Tiempo de salida</div>
         </div>
 
-        <div class="row my-3" style="height: 50vh;">
+        <div class="row my-3 timer">
             <app-timer></app-timer>
         </div>
         <div class="row">
@@ -27,6 +27,14 @@
         <div class="row p-0 m-0">
             <div class="col d-flex justify-content-center">
                 <button (click)="goToConfirmation()" class="btn btn-primary send-button">Validar registro</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="py-3 send-container">
+        <div class="row p-0 m-0">
+            <div class="col d-flex justify-content-center">
+                <button (click)="authService.logout()" class="btn btn-primary send-button">Cerrar sesión</button>
             </div>
         </div>
     </div>

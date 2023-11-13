@@ -6,6 +6,7 @@ import { AsociacionesComponent } from './asociaciones/asociaciones.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared.module';
 import { SesionesComponent } from './sesiones/sesiones.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -13,7 +14,8 @@ import { SesionesComponent } from './sesiones/sesiones.component';
   declarations: [
     TimerFullscreenComponent,
     AsociacionesComponent,
-    SesionesComponent
+    SesionesComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,

@@ -24,7 +24,13 @@
 .timer {
     height: 100%;
     width: 100%;
-    font-size: 35vw;
+    font-size: 35vh;
+}
+
+@media screen and (width < 768px){
+    .timer {
+        font-size: 10vh;
+    }
 }
 
 @media screen and (orientation: landscape) {
