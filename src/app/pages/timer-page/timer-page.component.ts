@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { Route, Router } from '@angular/router';
-import { TimerService, TimerStatus } from 'src/app/services/timer.service';
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
+import { TimerService } from "src/app/services/timer.service";
+
+export type TimerTitleType = 'entrada' | 'salida';
 
 @Component({
   selector: 'app-timer-page',
@@ -9,36 +11,46 @@ import { TimerService, TimerStatus } from 'src/app/services/timer.service';
 })
 export class TimerPageComponent {
 
-  entryTimerStatus: TimerStatus = {
-    name: '',
-    status: false,
-    value: ''
+  timerTitle: TimerTitleType = 'entrada';
+
+  timerEntry = {
+    min: 0,
+    sec: 0
   }
 
-  exitTimerStatus: TimerStatus = {
-    name: '',
-    status: false,
-    value: ''
+  timerExit = {
+    min: 0,
+    sec: 0
   }
 
   constructor(
-    private timerService: TimerService,
+    public timerService: TimerService,
     private route: Router
-    ) {
-      
-    }
+    ) { }
 
-  changeEntryTimer(timerStatus: TimerStatus) {
-    this.entryTimerStatus = timerStatus;
-    this.timerService.startTimer.next(timerStatus);
+  resetTimer() {
+    this.timerService.resetTimer();
   }
 
-  changeExitTimer(timerStatus: TimerStatus) {
-    this.exitTimerStatus = timerStatus;
-    this.timerService.startTimer.next(timerStatus);
+  changeTimer() {
+    this.saveTimer();
+    if (this.timerTitle === 'entrada') {
+      this.timerTitle = 'salida';
+    } else {
+      this.timerTitle = 'entrada';
+    }
+  }
+
+  saveTimer() {
+    if (this.timerTitle === 'entrada') {
+      this.timerService.saveTimer('entryTime');
+    } else {
+      this.timerService.saveTimer('exitTime');
+    }
   }
 
   goToConfirmation() {
+    this.saveTimer();
     this.route.navigateByUrl('validar')
   }
 

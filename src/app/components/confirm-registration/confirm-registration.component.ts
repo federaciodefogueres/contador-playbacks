@@ -60,9 +60,9 @@ export class ConfirmRegistrationComponent {
     this.calculatedSize.width = window.innerWidth - 32;
     this.calculatedSize.height = window.innerHeight * 0.3;
     for(let timer of this.timerService.timers) {
-      if (timer.name === 'entryTimer') {
+      if (timer.name === 'entryTime') {
         this.entryTimer = timer;
-      } else if (timer.name === 'exitTimer') {
+      } else if (timer.name === 'exitTime') {
         this.exitTimer = timer;
       }
     }
