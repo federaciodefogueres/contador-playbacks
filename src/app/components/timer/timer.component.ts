@@ -3,8 +3,8 @@ import { Subscription, interval, map } from 'rxjs';
 import { TimerService, TimerStatus } from 'src/app/services/timer.service';
 
 export interface TimerClockModel {
-  minutes: number;
-  seconds: number;
+  minutes: string;
+  seconds: string;
 }
 
 type TimerColorClass = 'good' | 'warning' | 'danger';
@@ -36,8 +36,8 @@ export class TimerComponent {
   }
 
   timer: TimerClockModel = {
-    minutes: 4,
-    seconds: 0,
+    minutes: localStorage.getItem('minutes') !== null ? localStorage.getItem('minutes')! : '04',
+    seconds: localStorage.getItem('seconds') !== null ? localStorage.getItem('seconds')! : '00',
   };
 
   loading: boolean = true;
@@ -59,19 +59,19 @@ export class TimerComponent {
     private timerService: TimerService
   ) {
     this.timerService.timer.valueChanges().subscribe((res: any) => {
-      this.timer.minutes = res[0].min;
-      this.timer.seconds = res[0].sec;
-      this.checkTimerColorClass();
+      this.timer.minutes = res[0].min.toString().padStart(2, '0');
+      this.timer.seconds = res[0].sec.toString().padStart(2, '0');
+      this.timerColorClass = this.checkTimerColorClass();
     })
    }
   
-  checkTimerColorClass(timer: number = this.timer.minutes) {
-    if (timer === 1 ) {
-      this.timerColorClass = 'warning';
-    } else if (timer === 0) {
-      this.timerColorClass = 'danger';
+  checkTimerColorClass(timer: number = parseInt(this.timer.minutes)): TimerColorClass {
+    if (timer >= 2 ) {
+      return 'good';
+    } else if (timer >= 1) {
+      return 'warning';
     } else {
-      this.timerColorClass = 'good';
+      return 'danger';
     }
   }
 

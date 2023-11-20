@@ -25,11 +25,10 @@ export class TimerService {
   timer!: AngularFirestoreCollection<any>;
 
   timerObject: Timer = {
-    min: 4,
-    sec: 0
+    min: localStorage.getItem('minutes') !== null ? parseInt(localStorage.getItem('minutes')!) : 4,
+    sec: localStorage.getItem('seconds') !== null ? parseInt(localStorage.getItem('seconds')!) : 0
   }
 
-  firstTime: boolean = true;
   timerStatus: boolean = false;
 
   constructor(
@@ -39,6 +38,8 @@ export class TimerService {
   }
 
   updateContador(timer: Timer = this.timerObject) {
+    localStorage.setItem('minutes', this.timerObject.min.toString())
+    localStorage.setItem('seconds', this.timerObject.sec.toString())
     this.timer.doc('timer').update(timer);
   }
 
@@ -52,9 +53,6 @@ export class TimerService {
   }
 
   startTimer() {
-    if (this.firstTime) {
-      this.updateContador({min: 4,sec: 0});
-    }
     this.timerStatus = true;
     let intervalTimer = setInterval(() => {
       if (this.timerStatus) {
@@ -79,26 +77,20 @@ export class TimerService {
 
   stopTimer() {
     this.timerStatus = false;
-    this.firstTime = false;
   }
 
   saveTimer(name: string) {
-    console.log('Saving Timer -> ', name);
-    
     let timerStatus: TimerStatus = {
       name: name,
       status: false,
       value: `${this.timerObject.min}:${this.timerObject.sec}`
     }
-    let timerFound = this.timers.find(timer => timer.name === name);
-    if (Boolean(timerFound)) {
-      timerFound = timerStatus;
+    let timerIndexFound = this.timers.findIndex(timer => timer.name === name);
+    if (timerIndexFound !== -1) {
+      this.timers[timerIndexFound].value = timerStatus.value;
     } else {
       this.timers.push(timerStatus)
     }
-    console.log(timerFound);
-    console.log(this.timers);
-    
   }
   
 }
