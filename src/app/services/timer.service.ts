@@ -25,11 +25,10 @@ export class TimerService {
   timer!: AngularFirestoreCollection<any>;
 
   timerObject: Timer = {
-    min: 4,
-    sec: 0
+    min: localStorage.getItem('minutes') !== null ? parseInt(localStorage.getItem('minutes')!) : 4,
+    sec: localStorage.getItem('seconds') !== null ? parseInt(localStorage.getItem('seconds')!) : 0
   }
 
-  firstTime: boolean = true;
   timerStatus: boolean = false;
 
   constructor(
@@ -39,6 +38,8 @@ export class TimerService {
   }
 
   updateContador(timer: Timer = this.timerObject) {
+    localStorage.setItem('minutes', this.timerObject.min.toString())
+    localStorage.setItem('seconds', this.timerObject.sec.toString())
     this.timer.doc('timer').update(timer);
   }
 
@@ -76,7 +77,6 @@ export class TimerService {
 
   stopTimer() {
     this.timerStatus = false;
-    this.firstTime = false;
   }
 
   saveTimer(name: string) {
