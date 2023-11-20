@@ -61,17 +61,17 @@ export class TimerComponent {
     this.timerService.timer.valueChanges().subscribe((res: any) => {
       this.timer.minutes = res[0].min;
       this.timer.seconds = res[0].sec;
-      this.checkTimerColorClass();
+      this.timerColorClass = this.checkTimerColorClass();
     })
    }
   
-  checkTimerColorClass(timer: number = this.timer.minutes) {
-    if (timer === 1 ) {
-      this.timerColorClass = 'warning';
-    } else if (timer === 0) {
-      this.timerColorClass = 'danger';
+  checkTimerColorClass(timer: number = this.timer.minutes): TimerColorClass {
+    if (timer >= 2 ) {
+      return 'good';
+    } else if (timer >= 1) {
+      return 'warning';
     } else {
-      this.timerColorClass = 'good';
+      return 'danger';
     }
   }
 
