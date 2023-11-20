@@ -83,22 +83,17 @@ export class TimerService {
   }
 
   saveTimer(name: string) {
-    console.log('Saving Timer -> ', name);
-    
     let timerStatus: TimerStatus = {
       name: name,
       status: false,
       value: `${this.timerObject.min}:${this.timerObject.sec}`
     }
-    let timerFound = this.timers.find(timer => timer.name === name);
-    if (Boolean(timerFound)) {
-      timerFound = timerStatus;
+    let timerIndexFound = this.timers.findIndex(timer => timer.name === name);
+    if (timerIndexFound !== -1) {
+      this.timers[timerIndexFound].value = timerStatus.value;
     } else {
       this.timers.push(timerStatus)
     }
-    console.log(timerFound);
-    console.log(this.timers);
-    
   }
   
 }
