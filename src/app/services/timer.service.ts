@@ -52,9 +52,6 @@ export class TimerService {
   }
 
   startTimer() {
-    if (this.firstTime) {
-      this.updateContador({min: 4,sec: 0});
-    }
     this.timerStatus = true;
     let intervalTimer = setInterval(() => {
       if (this.timerStatus) {
