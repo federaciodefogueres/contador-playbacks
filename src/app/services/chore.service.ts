@@ -21,10 +21,12 @@ export class ChoreService {
 
   setSessionSelected(session: Session | null) {
     this.sessionSelected$.next(session);
+    localStorage.setItem('session', session?.id!)
   }
 
   setAsociacionSelected(asociacion: Asociacion | null) {
     this.asociacionselected$.next(asociacion);
+    localStorage.setItem('asociacion', asociacion?.id!)
   }
 
   addAsociacionesSelected(asociacion: Asociacion) {
