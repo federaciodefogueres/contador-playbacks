@@ -36,8 +36,8 @@ export class TimerComponent {
   }
 
   timer: TimerClockModel = {
-    minutes: localStorage.getItem('minutes') !== null ? localStorage.getItem('minutes')! : '04',
-    seconds: localStorage.getItem('seconds') !== null ? localStorage.getItem('seconds')! : '00',
+    minutes: localStorage.getItem('minutes') !== null ? localStorage.getItem('minutes')! : '03',
+    seconds: localStorage.getItem('seconds') !== null ? localStorage.getItem('seconds')! : '30',
   };
 
   loading: boolean = true;
