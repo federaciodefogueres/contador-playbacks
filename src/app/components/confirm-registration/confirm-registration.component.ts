@@ -56,10 +56,10 @@ export class ConfirmRegistrationComponent {
     private settingsService: SettingsService,
     private fb: FormBuilder,
     private choreService: ChoreService
-  ){
+  ) {
     this.calculatedSize.width = window.innerWidth - 32;
     this.calculatedSize.height = window.innerHeight * 0.3;
-    for(let timer of this.timerService.timers) {
+    for (let timer of this.timerService.timers) {
       if (timer.name === 'entryTime') {
         this.entryTimer = timer;
       } else if (timer.name === 'exitTime') {
@@ -86,7 +86,7 @@ export class ConfirmRegistrationComponent {
       let body: EmailItem = {
         subject: 'Envío de resultados FFSJ',
         content: `
-          <h1>XXXV Certamen Artístico Fogueres de Sant Joan</h1>
+          <h1>XXXVI Certamen Artístico Fogueres de Sant Joan</h1>
           <h3>Sesión: ${this.session?.session_title}</h3>
           <h3>Asociación participante: ${this.asociacion?.title}</h3>
           <p>¡Hola! Este es un coreo automático generado por nuestro asistente virtual. El tiempo <strong>RESTANTE</strong> registrado por tu asociación han sido los siguientes:</p>
