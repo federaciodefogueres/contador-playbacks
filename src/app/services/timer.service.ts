@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
 
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore'
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 
 export interface Timer {
-  min: number, 
+  min: number,
   sec: number
 }
 
@@ -25,8 +24,8 @@ export class TimerService {
   timer!: AngularFirestoreCollection<any>;
 
   timerObject: Timer = {
-    min: localStorage.getItem('minutes') !== null ? parseInt(localStorage.getItem('minutes')!) : 3,
-    sec: localStorage.getItem('seconds') !== null ? parseInt(localStorage.getItem('seconds')!) : 30
+    min: localStorage.getItem('minutes') !== null ? parseInt(localStorage.getItem('minutes')!) : 4,
+    sec: localStorage.getItem('seconds') !== null ? parseInt(localStorage.getItem('seconds')!) : 0
   }
 
   timerStatus: boolean = false;
@@ -70,8 +69,8 @@ export class TimerService {
   }
 
   resetTimer() {
-    this.timerObject.min = 3;
-    this.timerObject.sec = 30;
+    this.timerObject.min = 4;
+    this.timerObject.sec = 0;
     this.updateContador()
   }
 
@@ -92,5 +91,5 @@ export class TimerService {
       this.timers.push(timerStatus)
     }
   }
-  
+
 }

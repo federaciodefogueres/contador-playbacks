@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Subscription, interval, map } from 'rxjs';
 import { TimerService, TimerStatus } from 'src/app/services/timer.service';
 
 export interface TimerClockModel {
@@ -9,9 +8,9 @@ export interface TimerClockModel {
 
 type TimerColorClass = 'good' | 'warning' | 'danger';
 type TimerScreenClass = 'full' | 'component';
-type FullScreenClass = 'full-screen' | '' ;
-type ContainerClass = 'container' | '' ;
-type PaddingClass = 'p-3' | '' ;
+type FullScreenClass = 'full-screen' | '';
+type ContainerClass = 'container' | '';
+type PaddingClass = 'p-3' | '';
 
 @Component({
   selector: 'app-timer',
@@ -36,8 +35,8 @@ export class TimerComponent {
   }
 
   timer: TimerClockModel = {
-    minutes: localStorage.getItem('minutes') !== null ? localStorage.getItem('minutes')! : '03',
-    seconds: localStorage.getItem('seconds') !== null ? localStorage.getItem('seconds')! : '30',
+    minutes: localStorage.getItem('minutes') !== null ? localStorage.getItem('minutes')! : '04',
+    seconds: localStorage.getItem('seconds') !== null ? localStorage.getItem('seconds')! : '00',
   };
 
   loading: boolean = true;
@@ -63,10 +62,10 @@ export class TimerComponent {
       this.timer.seconds = res[0].sec.toString().padStart(2, '0');
       this.timerColorClass = this.checkTimerColorClass();
     })
-   }
-  
+  }
+
   checkTimerColorClass(timer: number = parseInt(this.timer.minutes)): TimerColorClass {
-    if (timer >= 2 ) {
+    if (timer >= 2) {
       return 'good';
     } else if (timer >= 1) {
       return 'warning';
